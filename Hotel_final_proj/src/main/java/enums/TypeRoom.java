@@ -1,7 +1,7 @@
 package enums;
 
 public enum TypeRoom {
-    ECONOMY, STANDARD, LUX;
+    ECONOM, STANDART, LUX;
 
     @Override
     public String toString() {

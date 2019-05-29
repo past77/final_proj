@@ -7,28 +7,25 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
-/**
- * Created by ppolozhe on 5/28/19.
- */
-public class AllRooms implements Command{
+public class AllRoomPage implements Command{
     private RoomService roomService;
 
-    AllRooms(RoomService roomService) {
-        this.roomService = roomService;
+    AllRoomPage( RoomService apartmentService) {
+        this.roomService = apartmentService;
     }
 
     private static class Holder {
-        static final AllRooms INSTANCE = new AllRooms(RoomService.getInstance());
+        static final AllRoomPage INSTANCE = new AllRoomPage( RoomService.getInstance());
     }
 
-    public static AllRooms getInstance() {
+    public static AllRoomPage getInstance() {
         return Holder.INSTANCE;
     }
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         List<Room> rooms;
-        rooms = roomService.findAll();
+        rooms =  roomService.findAll();
         request.setAttribute("rooms", rooms);
         return "allRooms";
     }

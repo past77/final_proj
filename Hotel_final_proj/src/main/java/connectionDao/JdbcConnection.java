@@ -1,12 +1,15 @@
 package connectionDao;
 
+import jdbcDaoRealization.JdbcBookingDao;
+import org.apache.log4j.Logger;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 
 public class JdbcConnection implements AutoCloseable{
-
+    private static final Logger LOGGER = Logger.getLogger(JdbcBookingDao.class);
     private Connection connection;
 
     public JdbcConnection(Connection connection) {

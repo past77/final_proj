@@ -5,6 +5,7 @@ import connectionDao.JdbcConnection;
 import constants.MessageForLogger;
 import dao.AbstaractFuncForDao;
 import dao.AccountsDaoInterface;
+import enums.StatusUser;
 import modelEntity.Accounts;
 
 import java.sql.*;
@@ -22,10 +23,12 @@ public class JdbcAccountsDao extends AbstaractFuncForDao implements AccountsDaoI
     private ConnectionToDatabase connectionToDatabase;
     private static final Logger LOGGER = Logger.getLogger(JdbcAccountsDao.class);
 
-    private static final String ACCOUNT_TABLE = "account";
+    private static final String ACCOUNT_TABLE = "accounts";
     private static final String ID = "id";
     private static final String LOGIN = "login";
     private static final String PASSWORD = "password";
+    private static final String STATUS = "status";
+
 
 
     private static final String INSERT_ACCOUNTS = "INSERT INTO `hotel`.`"+ ACCOUNT_TABLE +"` (`"+ LOGIN +"`, `"+ PASSWORD +"`) VALUES (?, ?); ";
@@ -75,7 +78,7 @@ public class JdbcAccountsDao extends AbstaractFuncForDao implements AccountsDaoI
                 .setId(resultSet.getInt(ID))
                 .setLogin(resultSet.getString(LOGIN))
                 .setPassword(resultSet.getString(PASSWORD))
-              // .setRole(Accounts.Role.valueOf(resultSet.getString(COLUMN_USER_ROLE).toUpperCase()))
+               .setStatusUser(StatusUser.valueOf(resultSet.getString(STATUS).toUpperCase()))
                 .build();
     }
 
@@ -90,6 +93,7 @@ public class JdbcAccountsDao extends AbstaractFuncForDao implements AccountsDaoI
             statement.setString(1, login);
             ResultSet resultSet = statement.executeQuery();
             result = getOneAccount(resultSet);
+            LOGGER.info(JdbcAccountsDao.class.toString() + "findAccountByLogin");
         } catch (SQLException e) {
             LOGGER.info(JdbcAccountsDao.class.toString() + messageForLogger.DELETE + e.getMessage());
             throw new Exception();
@@ -123,7 +127,7 @@ public class JdbcAccountsDao extends AbstaractFuncForDao implements AccountsDaoI
                              Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(2, accounts.getLogin());
             statement.setString(3, accounts.getPassword());
-            //statement.setString(4, userAuthentication.getRole().toString());
+            statement.setString(4, accounts.getStatusUser().toString());
             insertedRow = statement.executeUpdate();
             accounts.setId(generateId(statement));
 //        } catch (SQLIntegrityConstraintViolationException e) {
@@ -159,7 +163,7 @@ public class JdbcAccountsDao extends AbstaractFuncForDao implements AccountsDaoI
                      connection.prepareStatement(UPDATE_ACCOUNTS)) {
             statement.setString(2, userAccounts.getLogin());
             statement.setString(3, userAccounts.getPassword());
-           // statement.setString(4, userAuthentication.getRole().toString());
+            statement.setString(4, userAccounts.getStatusUser().toString());
             statement.setInt(1, userAccounts.getId());
             updatedRow = statement.executeUpdate();
         } catch (SQLException e) {

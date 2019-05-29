@@ -11,13 +11,11 @@ public class JdbcDto {
     private LocalDate dateFrom;
     private LocalDate dateTo;
     private TypeRoom typeRoom;
-    private int persons;
 
     public static class Builder {
         private LocalDate dateFrom;
         private LocalDate dateTo;
         private TypeRoom typeRoom;
-        private int persons;
 
         public Builder setDateFrom(LocalDate dateFrom) {
             this.dateFrom = dateFrom;
@@ -34,34 +32,29 @@ public class JdbcDto {
             return this;
         }
 
-        public Builder setPersons(int persons) {
-            this.persons = persons;
-            return this;
-        }
         public JdbcDto build(){
             JdbcDto dto = new JdbcDto();
-            dto.setDateFrom(dateFrom);
-            dto.setDateTo(dateTo);
+            dto.setDateIn(dateFrom);
+            dto.setDateOut(dateTo);
             dto.setTypeRoom(typeRoom);
-            dto.setPersons(persons);
             return dto;
 
         }
     }
 
-    public LocalDate getDateFrom() {
+    public LocalDate getDateIn() {
         return dateFrom;
     }
 
-    public void setDateFrom(LocalDate dateFrom) {
+    public void setDateIn(LocalDate dateFrom) {
         this.dateFrom = dateFrom;
     }
 
-    public LocalDate getDateTo() {
+    public LocalDate getDateOut() {
         return dateTo;
     }
 
-    public void setDateTo(LocalDate dateTo) {
+    public void setDateOut(LocalDate dateTo) {
         this.dateTo = dateTo;
     }
 
@@ -73,11 +66,5 @@ public class JdbcDto {
         this.typeRoom = typeRoom;
     }
 
-    public int getPersons() {
-        return persons;
-    }
 
-    public void setPersons(int persons) {
-        this.persons = persons;
-    }
 }

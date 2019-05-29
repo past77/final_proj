@@ -28,48 +28,75 @@ public class JdbcRoomDao extends AbstaractFuncForDao implements RoomDaoInterface
 
     private static ConnectionToDatabase connectionToDatabase;//ATTENTION
     private static final String ROOM_TABLE = "room";
-    private static final String ID = "id";
-    private static final String CAPACITY = "capacity";
-    private static final String ROOM_TYPE = "typeRoom";
+    private static final String ID = "idRoom";
+    private static final String CAPACITY = "roomCap";
+    private static final String ROOM_TYPE = "type";
     private static final String PRICE = "price";
-    private static final String NUMBER = "number";
+    private static final String NUMBER = "numberR";
     private static final String BOOKING = "booking";
     private static final String BOOKINGROOM = "booking.idRoom";
     private static final String ROOMID = "room.id";
 
 
-    private static final String INSERT_ROOM = "INSERT INTO `hotel`." + ROOM_TABLE + "(`"+ CAPACITY +"`, `"
-            + ROOM_TYPE +"`, `"+ PRICE +"`, `"+ NUMBER +"`) VALUES (?, ?, ?, ?);";
-    private static final String UPDATE_ROOM = "UPDATE `hotel`.`" + ROOM_TABLE + " SET `"+ CAPACITY +"`=?, `"
-            + ROOM_TYPE +"`=?, `"+ PRICE +"`=?, `"+ NUMBER +"``=? WHERE `"+ ID +"`=?;";
-    private static final String DELETE_ROOM = "DELETE FROM `hotel`.`"+ ROOM_TABLE+"` WHERE `"+ ID +"`=?;";
+    private static final String INSERT_ROOM = "INSERT INTO `hotel`." + ROOM_TABLE + "(`" + CAPACITY + "`, `"
+            + ROOM_TYPE + "`, `" + PRICE + "`, `" + NUMBER + "`) VALUES (?, ?, ?, ?);";
+    private static final String UPDATE_ROOM = "UPDATE `hotel`.`" + ROOM_TABLE + " SET `" + CAPACITY + "`=?, `"
+            + ROOM_TYPE + "`=?, `" + PRICE + "`=?, `" + NUMBER + "``=? WHERE `" + ID + "`=?;";
+    private static final String DELETE_ROOM = "DELETE FROM `hotel`.`" + ROOM_TABLE + "` WHERE `" + ID + "`=?;";
 
-    private static final String FIND_ALL = "SELECT * FROM " + ROOM_TABLE + " ";
-    private static final String FIND_BY_ID = FIND_ALL + "WHERE "+ ID +" = ?";
-    private static final String FIND_BY_NUMBER = FIND_ALL + "WHERE "+ NUMBER +" = ?";
+    private static final String FIND_ALL = "SELECT * FROM `hotel`.`room`";
+    private static final String FIND_BY_ID = FIND_ALL + "WHERE " + ID + " = ?";
+    private static final String FIND_BY_NUMBER = FIND_ALL + "WHERE " + NUMBER + " = ?";
     private static final String FIND_FREE_NUMBER = FIND_ALL +
-            "WHERE "+ ROOM_TABLE +"."+ ID + "NOT IN (" +
-            "SELECT "+ BOOKINGROOM +" " +
-            "FROM "+ ROOM_TABLE +" " +
-            "INNER JOIN "+ BOOKING +" ON "+ BOOKINGROOM +" = " + ROOM_TABLE + "." + ID +" " +
-            "WHERE status = 'confirmed' and (? < "+ BOOKING +".dateOut AND  ? > "+ BOOKING +".dateIn)) " +
-            "AND "+ROOM_TYPE+"."+ROOM_TYPE+" = ? and "+ROOM_TYPE+".capacity >= ?";
-    private static final String FIND_BY_BOOKING = FIND_ALL + " INNER JOIN "+BOOKING+" ON "+ROOMID+" = "+BOOKINGROOM+" " +
-            " WHERE booking.id = ? AND "+ROOMID+" NOT IN (" +
-            "SELECT "+BOOKINGROOM+" " +
+            "WHERE " + ROOM_TABLE + "." + ID + "NOT IN (" +
+            "SELECT " + BOOKINGROOM + " " +
             "FROM " + ROOM_TABLE + " " +
-            "INNER JOIN "+ BOOKING +" ON "+BOOKINGROOM+" = "+ROOMID+" " +
+            "INNER JOIN " + BOOKING + " ON " + BOOKINGROOM + " = " + ROOM_TABLE + "." + ID + " " +
+            "WHERE status = 'confirmed' and (? < " + BOOKING + ".dateOut AND  ? > " + BOOKING + ".dateIn)) " +
+            "AND " + ROOM_TYPE + "." + ROOM_TYPE + " = ? and " + ROOM_TYPE + ".capacity >= ?";
+    private static final String FIND_BY_BOOKING = FIND_ALL + " INNER JOIN " + BOOKING + " ON " + ROOMID + " = " + BOOKINGROOM + " " +
+            " WHERE booking.id = ? AND " + ROOMID + " NOT IN (" +
+            "SELECT " + BOOKINGROOM + " " +
+            "FROM " + ROOM_TABLE + " " +
+            "INNER JOIN " + BOOKING + " ON " + BOOKINGROOM + " = " + ROOMID + " " +
             "WHERE status = 'confirmed' and (? < booking.dateOut AND  ? > booking.dateIn)) " +
             "AND room.typeRoom = ? and room.capacity > ?";
 
+    public JdbcRoomDao(){}
 
-    JdbcRoomDao(ConnectionToDatabase connectionToDatabase) {
-        this.connectionToDatabase = connectionToDatabase;
+    JdbcRoomDao(ConnectionToDatabase connectionManager) {
+        this.connectionToDatabase = connectionManager;
     }
 
+    private static class Holder {
+        static final JdbcRoomDao INSTANCE = new JdbcRoomDao(ConnectionToDatabase.getInstance());
+    }
+
+    public static JdbcRoomDao getInstance() {
+        LOGGER.info("GGGGIMSTANCE: ");
+        return Holder.INSTANCE;
+    }
+
+
+//    private JdbcRoomDao(ConnectionToDatabase connectionToDatabase) {
+//        LOGGER.info("CONDTRUCTOR: ");
+//        this.connectionToDatabase = connectionToDatabase;
+//    }
+//
+//    private static class Holder {
+//        static final JdbcRoomDao INSTANCE = new JdbcRoomDao(connectionToDatabase.getInstance());
+//    }
+//
+//    public static JdbcRoomDao getInstance() {
+//        LOGGER.info("GGGGIMSTANCE: ");
+//        return Holder.INSTANCE;
+//    }
+
+
     private List<Room> getSomeRooms(ResultSet resultSet) throws SQLException {
+        LOGGER.info("getSomeRooms: ");
         List<Room> result = new ArrayList<>();
-        if(resultSet.isBeforeFirst()) {
+        if (resultSet.isBeforeFirst()) {
             while (resultSet.next()) {
                 result.add(buildRoom(resultSet));
             }
@@ -79,7 +106,7 @@ public class JdbcRoomDao extends AbstaractFuncForDao implements RoomDaoInterface
 
     private Optional<Room> getOneRoom(ResultSet resultSet) throws SQLException {
         Optional<Room> result = Optional.empty();
-        if(resultSet.isBeforeFirst()){
+        if (resultSet.isBeforeFirst()) {
             while (resultSet.next()) {
                 result = Optional.of(buildRoom(resultSet));
             }
@@ -92,8 +119,8 @@ public class JdbcRoomDao extends AbstaractFuncForDao implements RoomDaoInterface
                 .setId(resultSet.getInt(ID))
                 .setRoomCap(resultSet.getInt(CAPACITY))
                 .setNumber(resultSet.getInt(NUMBER))
-                .setRoomType(TypeRoom.valueOf(resultSet.getString(2).toUpperCase()))//СHANGE NUM OF INDEX
-                .setPrice(resultSet.getInt(3))
+                .setRoomType(TypeRoom.valueOf(resultSet.getString(5).toUpperCase()))//СHANGE NUM OF INDEX
+                .setPrice(resultSet.getInt(4))
                 .build();
     }
 
@@ -102,7 +129,7 @@ public class JdbcRoomDao extends AbstaractFuncForDao implements RoomDaoInterface
         Optional<Room> result = null;
         try (JdbcConnection connection = connectionToDatabase.getConnection();
              PreparedStatement statement =
-                     connection.prepareStatement(FIND_BY_ID)){
+                     connection.prepareStatement(FIND_BY_ID)) {
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
             result = getOneRoom(resultSet);
@@ -116,11 +143,13 @@ public class JdbcRoomDao extends AbstaractFuncForDao implements RoomDaoInterface
     @Override
     public List<Room> findAll() throws Exception {
         List<Room> result = null;
+        LOGGER.info("RESULT0: " + result);
         try (JdbcConnection connection = connectionToDatabase.getConnection();
              PreparedStatement statement =
-                     connection.prepareStatement(FIND_ALL)){
+                     connection.prepareStatement(FIND_ALL)) {
             ResultSet resultSet = statement.executeQuery();
             result = getSomeRooms(resultSet);
+            LOGGER.info("RESULT: " + result);
         } catch (SQLException e) {
             LOGGER.info(JdbcRoomDao.class.toString() + "findAll" + e.getMessage());
         }
@@ -135,10 +164,10 @@ public class JdbcRoomDao extends AbstaractFuncForDao implements RoomDaoInterface
              PreparedStatement statement =
                      connection.prepareStatement(INSERT_ROOM,
                              Statement.RETURN_GENERATED_KEYS)) {
-            statement.setInt(4, room.getRoomCap());//capindex
-            statement.setString(3, room.getRoomType().toString());//aptype
-            statement.setInt(2, room.getPrice());//price
-            statement.setInt(5, room.getNumber());//number
+            statement.setInt(3, room.getRoomCap());//capindex
+            statement.setString(5, room.getRoomType().toString());//aptype
+            statement.setInt(4, room.getPrice());//price
+            statement.setInt(2, room.getNumber());//number
             insertedRow = statement.executeUpdate();
             room.setId(generateId(statement));
         } catch (SQLException e) {
@@ -170,10 +199,10 @@ public class JdbcRoomDao extends AbstaractFuncForDao implements RoomDaoInterface
         try (JdbcConnection connection = connectionToDatabase.getConnection();
              PreparedStatement statement =
                      connection.prepareStatement(UPDATE_ROOM)) {
-            statement.setInt(4, room.getRoomCap());//cap
-            statement.setString(3, room.getRoomType().toString());//type
-            statement.setInt(2, room.getPrice());//price
-            statement.setInt(5, room.getNumber());//num
+            statement.setInt(3, room.getRoomCap());//cap
+            statement.setString(5, room.getRoomType().toString());//type
+            statement.setInt(4, room.getPrice());//price
+            statement.setInt(2, room.getNumber());//num
             statement.setInt(1, room.getId());//id
             updatedRow = statement.executeUpdate();
         } catch (SQLException e) {
@@ -189,7 +218,7 @@ public class JdbcRoomDao extends AbstaractFuncForDao implements RoomDaoInterface
         Optional<Room> result = null;
         try (JdbcConnection connection = connectionToDatabase.getConnection();
              PreparedStatement statement =
-                     connection.prepareStatement(FIND_BY_NUMBER)){
+                     connection.prepareStatement(FIND_BY_NUMBER)) {
             statement.setString(1, number);
             ResultSet resultSet = statement.executeQuery();
             result = getOneRoom(resultSet);
@@ -205,7 +234,7 @@ public class JdbcRoomDao extends AbstaractFuncForDao implements RoomDaoInterface
         Optional<Room> result = null;
         try (JdbcConnection connection = connectionToDatabase.getConnection();
              PreparedStatement statement =
-                     connection.prepareStatement(FIND_BY_BOOKING)){
+                     connection.prepareStatement(FIND_BY_BOOKING)) {
             statement.setInt(1, booking.getId());
             statement.setDate(2, Date.valueOf(booking.getDateIn()));
             statement.setDate(3, Date.valueOf(booking.getDateOut()));
@@ -224,10 +253,9 @@ public class JdbcRoomDao extends AbstaractFuncForDao implements RoomDaoInterface
         List<Room> result = null;
         try (JdbcConnection connection = connectionToDatabase.getConnection();
              PreparedStatement statement =
-                     connection.prepareStatement(FIND_FREE_NUMBER)){
-            statement.setDate(1, Date.valueOf(bookingDto.getDateFrom()));
-            statement.setDate(2, Date.valueOf(bookingDto.getDateTo()));
-            statement.setInt(4, bookingDto.getPersons());
+                     connection.prepareStatement(FIND_FREE_NUMBER)) {
+            statement.setDate(1, Date.valueOf(bookingDto.getDateIn()));
+            statement.setDate(2, Date.valueOf(bookingDto.getDateOut()));
             statement.setString(3, bookingDto.getTypeRoom().toString());
             ResultSet resultSet = statement.executeQuery();
             result = getSomeRooms(resultSet);
@@ -238,12 +266,5 @@ public class JdbcRoomDao extends AbstaractFuncForDao implements RoomDaoInterface
         return result;
     }
 
-    private static class Holder {
-        static final JdbcRoomDao INSTANCE = new JdbcRoomDao(connectionToDatabase.getInstance());
-    }
-
-    public static JdbcRoomDao getInstance() {
-        return Holder.INSTANCE;
-    }
 
 }

@@ -15,7 +15,7 @@
         </div>
 
         <div class="col-md-2 menu">
-            <a href="/apartments" class="lnk"><fmt:message key="freeApartments.page"/></a>
+            <a href="/rooms" class="lnk"><fmt:message key="freeRooms.page"/></a>
         </div>
 
 
