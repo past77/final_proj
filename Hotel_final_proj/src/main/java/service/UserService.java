@@ -46,7 +46,7 @@ public class UserService {
 
     private boolean correctPassword(Accounts accounts, String password) {
         boolean res = false;
-            LOGGER.info(" PASSWORFD_IN_DB:::: " + accounts.getPassword() + " PASSWORD_RFOM_FORM: " + password);
+            LOGGER.info(" PASSWORD_IN_DB:::: " + accounts.getPassword() + " PASSWORD_FROM_FORM: " + password);
         if (password.equals(accounts.getPassword())){
             res = true;
         }

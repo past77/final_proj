@@ -73,28 +73,11 @@ public class JdbcRoomDao extends AbstaractFuncForDao implements RoomDaoInterface
     }
 
     public static JdbcRoomDao getInstance() {
-        LOGGER.info("GGGGIMSTANCE: ");
         return Holder.INSTANCE;
     }
 
 
-//    private JdbcRoomDao(ConnectionToDatabase connectionToDatabase) {
-//        LOGGER.info("CONDTRUCTOR: ");
-//        this.connectionToDatabase = connectionToDatabase;
-//    }
-//
-//    private static class Holder {
-//        static final JdbcRoomDao INSTANCE = new JdbcRoomDao(connectionToDatabase.getInstance());
-//    }
-//
-//    public static JdbcRoomDao getInstance() {
-//        LOGGER.info("GGGGIMSTANCE: ");
-//        return Holder.INSTANCE;
-//    }
-
-
     private List<Room> getSomeRooms(ResultSet resultSet) throws SQLException {
-        LOGGER.info("getSomeRooms: ");
         List<Room> result = new ArrayList<>();
         if (resultSet.isBeforeFirst()) {
             while (resultSet.next()) {
@@ -143,7 +126,6 @@ public class JdbcRoomDao extends AbstaractFuncForDao implements RoomDaoInterface
     @Override
     public List<Room> findAll() throws Exception {
         List<Room> result = null;
-        LOGGER.info("RESULT0: " + result);
         try (JdbcConnection connection = connectionToDatabase.getConnection();
              PreparedStatement statement =
                      connection.prepareStatement(FIND_ALL)) {

@@ -64,10 +64,9 @@
                 </td>
                 <td>
                     <div class="col-md-2">
-                        <form action="/profile/rooms/delete" method="post">
-                            <input type="hidden" name="delete" value=${item.id}/>
-                            <button class="submit-button" type="submit"><fmt:message key="rooms.delete"/></button>
-                        </form>
+                        <%-- <form action="/profile/rooms/delete" method="post">
+                         ubmit-button" type="submit"><fmt:message key="rooms.delete"/></button>
+                        </form>--%>
                     </div>
                 </td>
             </tr>
