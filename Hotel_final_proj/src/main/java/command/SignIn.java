@@ -52,14 +52,14 @@ public class SignIn implements Command{
 
         LOGGER.info("USER:     " + user);
         if (!user.isPresent()) {
-            LOGGER.info("IN IFF____");
+
             errors.add("message.signin.error");
             setAttributesToRequest(request, login, errors);
             return messageForUsers.LOGIN;
         }
-
+    LOGGER.info("USER.GET: "+ user.get());
         request.getSession().setAttribute(messageForUsers.USER, user.get());
-        return messageForUsers.PROFILE;
+        return "profilePage";
     }
 
     private void setAttributesToRequest(HttpServletRequest request, String login, List<String> errors){

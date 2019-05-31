@@ -16,6 +16,6 @@ public class ProfilePage implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        return "profile";
+        return "profilePage";
     }
 }

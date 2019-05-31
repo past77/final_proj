@@ -102,6 +102,10 @@ public class Accounts {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, login, password, statusUser);
+        int result = id;
+        result = 31 * result + (login != null ? login.hashCode() : 0);
+        result = 31 * result + (password != null ? password.hashCode() : 0);
+        result = 31 * result + (statusUser != null ? statusUser.hashCode() : 0);
+        return result;
     }
 }

@@ -22,6 +22,9 @@ public class CommandFactory {
         commands.put("profile/rooms", AllRooms.getInstance());
         commands.put("/rooms", AllRoomPage.getInstance());
        // commands.put("signUp", SignUp.getInstance());
+        commands.put("/profile", ProfilePage.getInstance());
+        commands.put("/logout", Logout.getInstance());
+        commands.put("/registration", RegisterPage.getInstance());
 
     }
 

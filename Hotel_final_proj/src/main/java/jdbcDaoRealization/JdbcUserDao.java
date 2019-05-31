@@ -25,10 +25,10 @@ public class JdbcUserDao extends AbstaractFuncForDao implements UserDaoInterface
     private ConnectionToDatabase connectionToDatabase;
     private static final Logger LOGGER = Logger.getLogger(String.valueOf(JdbcUserDao.class));
 
-    private static final String USER_TABLE = "user";
+    private static final String USER_TABLE = "users";
     private static final String ID = "id";
-    private static final String FIRST_NAME = "first_name";
-    private static final String SURNAME = "last_name";
+    private static final String FIRST_NAME = "name";
+    private static final String SURNAME = "surname";
     private static final String PHONE = "phone";
 
     private static final String INSERT_USER = "INSERT INTO `hotel`.`"+ USER_TABLE +"` (`"+ ID +"`, `"+

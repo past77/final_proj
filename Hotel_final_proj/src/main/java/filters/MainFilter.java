@@ -24,7 +24,7 @@ public abstract  class MainFilter implements Filter {
 
         if(session != null) {
             user = ((User) req.getSession().getAttribute("user"));
-        }
+    }
 
         if(isn_tAllowed(req, user)) {
             resp.sendRedirect("main");

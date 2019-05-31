@@ -22,7 +22,7 @@
     <input type="text" name="login" placeholder="example@mail.com" value="${login}" required="required">
     <br>
     <span class="text-primary"><i class="fa fa-unlock-alt" aria-hidden="true"></i>*</span>
-    <input name="password" placeholder="&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;" required="required"
+    <input name="password" required="required"
            type="password">
     <br>
     <input class="submit-button" type="submit" value=<fmt:message key="sign.in"/>>
