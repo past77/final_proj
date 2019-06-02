@@ -36,7 +36,6 @@ public class DaoFactory {
     }
 
     public RoomDaoInterface getRoomDao(){
-        LOGGER.info("GETROOMDAO");
         return JdbcRoomDao.getInstance();
     }
 }

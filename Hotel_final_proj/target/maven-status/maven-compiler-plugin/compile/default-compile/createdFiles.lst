@@ -29,6 +29,7 @@ command\RegisterPage$Holder.class
 command\RoomPage.class
 jdbcDaoRealization\JdbcAccountsDao$Holder.class
 modelEntity\Room.class
+command\SignUp$Holder.class
 connectionDao\DaoFactory$1.class
 dao\BookingDaoInterface.class
 dao\RoomDaoInterface.class

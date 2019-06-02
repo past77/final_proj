@@ -2,7 +2,6 @@ package service;
 
 import connectionDao.ConnectionToDatabase;
 import connectionDao.DaoFactory;
-import jdbcDaoRealization.JdbcAccountsDao;
 import modelEntity.Accounts;
 import modelEntity.User;
 import org.apache.log4j.Logger;
@@ -34,11 +33,13 @@ public class UserService {
     public Optional<User> findUserByLoginPassword(String login, String password) throws Exception {
         Optional<User> user = Optional.empty();
         Optional<Accounts> accounts;
-            LOGGER.info(" LoOGIN " + login + " PASSWORD: " + password);
+            LOGGER.info(" Login " + login + " Password: " + password);
         accounts = daoFactory.getAccountsDao().findAccountsByLogin(login);
-        LOGGER.info(accounts + " Acc!");
+        LOGGER.info(accounts);
         if (accounts.isPresent() && correctPassword(accounts.get(), password)) {
+            LOGGER.info("accounts.get().getId(): "+accounts.get().getId());
             user = daoFactory.getUserDao().find(accounts.get().getId());
+            LOGGER.info(user);
             user.get().setAccounts(accounts.get());
         }
         return user;
@@ -50,24 +51,26 @@ public class UserService {
         if (password.equals(accounts.getPassword())){
             res = true;
         }
+        LOGGER.info(res);
         return res;
     }
 
-//    public boolean create(User user) throws Exception {
-//        boolean created = false;
-//        try {
-//            connectionToDatabase.startTransaction();
-//            daoFactory.getUserAuthenticationDao().create(user.getUserAuthentication());
-//            created = daoFactory.getUserDao().create(user);
-//            if(1 == 1){
-//                throw new RuntimeException();
-//            }
-//            connectionManager.commit();
-//        } catch (DaoException e){
-//            connectionManager.rollback();
-//            throw e;
-//        }
-//        return created;
-//    }
+
+
+    public boolean create(User user) throws Exception {
+        boolean created = false;
+        try {
+            LOGGER.info(user.getSurname() + " " + user.getFirstName() + " " + user.getPhoneNumber() + " " +
+                    user.getAccounts() + " " + user.getId());
+            connectionToDatabase.startTransaction();
+            daoFactory.getAccountsDao().create(user.getAccounts());
+            created = daoFactory.getUserDao().create(user);
+            connectionToDatabase.commit();
+        } catch (Exception e){
+            connectionToDatabase.rollback();
+            throw e;
+        }
+        return created;
+    }
 
 }

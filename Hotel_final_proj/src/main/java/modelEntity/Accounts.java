@@ -41,7 +41,7 @@ public class Accounts {
          Accounts accounts = new Accounts();
          accounts.setId(id);
          accounts.setLogin(login);
-         accounts.setPassword(password);
+         accounts.setPassword(password);//HashPassword
          accounts.setStatusUser(statusUser);
          return accounts;
         }

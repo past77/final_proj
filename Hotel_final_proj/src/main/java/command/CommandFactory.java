@@ -15,13 +15,13 @@ public class CommandFactory {
     private static final Logger LOGGER = Logger.getLogger(UserService.class);
     CommandFactory() {
         commands = new HashMap<>();
-
+        commands.put("/registration/signup", SignUp.getInstance());
         commands.put("/", MainPage.getInstance());
-        commands.put("/login/signin", SignIn.getInstance());
+       commands.put("/login/signin", SignIn.getInstance());
         commands.put("/login", LoginPage.getInstance());
         commands.put("profile/rooms", AllRooms.getInstance());
         commands.put("/rooms", AllRoomPage.getInstance());
-       // commands.put("signUp", SignUp.getInstance());
+       // commands.put("/registration/signup", SignUp.getInstance());
         commands.put("/profile", ProfilePage.getInstance());
         commands.put("/logout", Logout.getInstance());
         commands.put("/registration", RegisterPage.getInstance());

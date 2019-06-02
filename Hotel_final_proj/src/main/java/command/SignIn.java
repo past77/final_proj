@@ -5,7 +5,6 @@ import constants.MassageForUsers;
 import org.apache.log4j.Logger;
 import service.UserService;
 import validator.Validator;
-import validator.Hasher;
 import modelEntity.User;
 
 import javax.servlet.http.HttpServletRequest;

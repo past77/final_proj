@@ -54,7 +54,6 @@ public class FrontController extends HttpServlet{
             e.printStackTrace();
             LOGGER.error(messageForLogger.EXECUTE_COMMAND + e);
         }
-
         return page;
     }
 

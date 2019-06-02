@@ -31,7 +31,7 @@ public class JdbcAccountsDao extends AbstaractFuncForDao implements AccountsDaoI
 
 
 
-    private static final String INSERT_ACCOUNTS = "INSERT INTO `hotel`.`"+ ACCOUNT_TABLE +"` (`"+ LOGIN +"`, `"+ PASSWORD +"`) VALUES (?, ?); ";
+    private static final String INSERT_ACCOUNTS = "INSERT INTO `hotel`.`"+ ACCOUNT_TABLE +"` (`"+ LOGIN +"`, `"+ PASSWORD  +"`, `"+ STATUS + "`) VALUES (?, ?, ?); ";
     private static final String UPDATE_ACCOUNTS = "UPDATE `hotel`.`"+ ACCOUNT_TABLE +"` SET `"+ LOGIN +"`=?, `"+ PASSWORD +"`=? WHERE `"+ ID +"`=?; ";
     private static final String DELETE_ACCOUNTS = "DELETE FROM `hotel`.`"+ ACCOUNT_TABLE +"` WHERE `"+ ID +"`=?;";
 
@@ -125,16 +125,16 @@ public class JdbcAccountsDao extends AbstaractFuncForDao implements AccountsDaoI
              PreparedStatement statement =
                      connection.prepareStatement(INSERT_ACCOUNTS,
                              Statement.RETURN_GENERATED_KEYS)) {
-            statement.setString(2, accounts.getLogin());
-            statement.setString(3, accounts.getPassword());
-            statement.setString(4, accounts.getStatusUser().toString());
+            statement.setString(1, accounts.getLogin());
+            statement.setString(2, accounts.getPassword());
+            statement.setString(3, accounts.getStatusUser().toString());
             insertedRow = statement.executeUpdate();
             accounts.setId(generateId(statement));
-//        } catch (SQLIntegrityConstraintViolationException e) {
-//            LOGGER.error("error" + e);
-//            throw new Exception();//DUBLICATE
+        } catch (SQLIntegrityConstraintViolationException e) {
+            LOGGER.error("error" + e);
+            throw new Exception();//DUBLICATE
         } catch (SQLException e) {
-            LOGGER.info(JdbcAccountsDao.class.toString() + messageForLogger.CREATE + e.getMessage());
+            LOGGER.info(JdbcAccountsDao.class.toString() +" "+ messageForLogger.CREATE + e.getMessage());
             throw new Exception();
         }
         return insertedRow > 0;

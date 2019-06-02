@@ -22,7 +22,7 @@ public class ConnectionToDatabase {
 
     private static BasicDataSource dataSource;
    // private DataSource dataSource;
-   private static ThreadLocal<JdbcConnection> ThreadLocalconnection = new ThreadLocal<>();
+   private static ThreadLocal<JdbcConnection> ThreadLocalConnection = new ThreadLocal<>();
 
     private ConnectionToDatabase() {
         try {
@@ -45,7 +45,6 @@ public class ConnectionToDatabase {
             throw new RuntimeException(e);
         }
     }
-
     private static class DoLink {
         static final ConnectionToDatabase INSTANCE = new ConnectionToDatabase();
     }
@@ -56,15 +55,37 @@ public class ConnectionToDatabase {
     }
 
     public synchronized JdbcConnection getConnection() {
-        if(ThreadLocalconnection.get() == null) {
+        if(ThreadLocalConnection.get() == null) {
             try {
                 return new JdbcConnection(dataSource.getConnection());
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
         } else {
-            return ThreadLocalconnection.get();
+            return ThreadLocalConnection.get();
         }
+    }
+
+    public void startTransaction(){
+        JdbcConnection connection = getConnection();
+        connection.startTransaction();
+        ThreadLocalConnection.set(connection);
+    }
+    public void commit(){
+        JdbcConnection connection = ThreadLocalConnection.get();
+        connection.commit();
+        close(connection);
+    }
+
+    public void rollback(){
+        JdbcConnection connection =ThreadLocalConnection.get();
+        connection.rollback();
+        close(connection);
+    }
+
+    private void close(JdbcConnection connection){
+        ThreadLocalConnection.remove();
+        connection.close();
     }
 
 }

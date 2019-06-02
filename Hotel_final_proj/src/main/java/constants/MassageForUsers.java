@@ -23,7 +23,7 @@ public class MassageForUsers {
         public String ERRORS = "errors";
         public String PHONE = "phone";
         public String FIRST_NAME = "firstName";
-        public String LAST_NAME = "lastName";
+        public String SURNAME = "surname";
         public String COMPLETED_REGISTRATION = "completedRegistration";
         public String DATE_FROM = "dateFrom";
         public String DATE_TO = "dateTo";
@@ -41,4 +41,19 @@ public class MassageForUsers {
         public String CURRENT_PAGE = "currentPage";
         public String DELETE = "delete";
         public String FIND = "find";
+
+
+        public String INVALID_LOGIN = "message.login.invalid";
+        public String INVALID_PASSWORD = "message.password.invalid";
+        public String INVALID_PHONE = "message.phone.invalid";
+        public String INVALID_LAST_NAME = "message.last.name.invalid";
+        public String INVALID_FIRST_NAME = "message.first.name.invalid";
+       // String COMPLETED_REGISTRATION = "message.registration.complete";
+        public String DUPLICATE_LOGIN = "message.login.duplicate";
+        public String INVALID_DATE = "message.date.invalid";
+        public String INVALID_PERSONS = "message.persons.invalid";
+        public String INVALID_PRICE = "message.price.invalid";
+        public String INVALID_NUMBER = "message.number.invalid";
+        public String INVALID_CAPACITY = "message.capacity.invalid";
+        public String INVALID_DATA = "message.number.and.date.invalid";
     }
