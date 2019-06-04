@@ -13,14 +13,19 @@
 <c:if test="${user.accounts.statusUser.toString() == 'user'}">
 
 <div class="col-md-2 menu">
-        <a href="/profile/addBooking"><fmt:message key="addBoking.page"/></a>
-    </div>
+        <a href="/profile/addBook"><fmt:message key="addBoking.page"/></a>
+              </div>
 <div class="col-md-2">
     </div>
 
     <div class="col-md-2 menu">
         <a href="/profile/bookings"><fmt:message key="bookings.page"/></a>
     </div>
+     <c:choose>
+    <c:when test="${success != null}">
+        <fmt:message key="message.complete"/>
+    </c:when>
+     </c:choose>
 </c:if>
 
 <c:if test="${user.accounts.statusUser.toString() == 'admin'}">
