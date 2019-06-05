@@ -146,14 +146,14 @@ public class JdbcRoomDao extends AbstaractFuncForDao implements RoomDaoInterface
              PreparedStatement statement =
                      connection.prepareStatement(INSERT_ROOM,
                              Statement.RETURN_GENERATED_KEYS)) {
-            statement.setInt(3, room.getRoomCap());//capindex
-            statement.setString(5, room.getRoomType().toString());//aptype
-            statement.setInt(4, room.getPrice());//price
-            statement.setInt(2, room.getNumber());//number
+            statement.setInt(1, room.getRoomCap());//capindex
+            statement.setString(2, room.getRoomType().toString());//aptype
+            statement.setInt(3, room.getPrice());//price
+            statement.setInt(4, room.getNumber());//number
             insertedRow = statement.executeUpdate();
             room.setId(generateId(statement));
         } catch (SQLException e) {
-            LOGGER.info(JdbcRoomDao.class.toString() + "create" + e.getMessage());
+            LOGGER.info(JdbcRoomDao.class.toString() + " create" + e.getMessage());
             throw new Exception();
         }
         return insertedRow > 0;

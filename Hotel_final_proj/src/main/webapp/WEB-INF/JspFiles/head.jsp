@@ -16,5 +16,5 @@ pageContext.request.locale}" scope="session" />
 
 <fmt:setLocale value="${language}" />
 <fmt:setBundle basename="lang" />
-
+<link rel="stylesheet" type="text/css" href="/resources/css/style.css">
 <title><fmt:message key="hotel"/></title>

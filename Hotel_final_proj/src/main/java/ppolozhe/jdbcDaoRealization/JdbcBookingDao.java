@@ -24,7 +24,7 @@ public class JdbcBookingDao extends AbstaractFuncForDao implements BookingDaoInt
     MessageForLogger messageForLogger = new MessageForLogger();
 
     private static final String BOOKING_TABLE = "booking";
-    private static final String BOOKING_ID = "id";
+    private static final String BOOKING_ID = "idbook";
     private static final String BOOKING_ID_ROOM = "idRoom";
     private static final String BOOKING_ID_USER = "idUser";
     private static final String BOOKING_STATUS = "status";
@@ -51,7 +51,7 @@ public class JdbcBookingDao extends AbstaractFuncForDao implements BookingDaoInt
 
     private static final String FIND_ALL = "SELECT * FROM " + BOOKING_TABLE;
     private static final String FIND_BY_ID = FIND_ALL + "WHERE" + BOOKING_ID + " = ?";
-    private static final String FIND_BY_USER = FIND_ALL + "INNER JOIN users ON" + BOOKING_TABLE +"."+ BOOKING_ID_USER + " = users.id WHERE users.id = ?";
+    private static final String FIND_BY_USER = FIND_ALL + " INNER JOIN users ON " + BOOKING_TABLE +"."+ BOOKING_ID_USER + " = users.id WHERE users.id = ?";
     private static final String FIND_PROCESSED = FIND_ALL + "WHERE status = \"processed\"";
     private static final String LIMIT = "LIMIT ?,? ";
 
@@ -114,7 +114,7 @@ public class JdbcBookingDao extends AbstaractFuncForDao implements BookingDaoInt
             statement.setTimestamp(5, Timestamp.valueOf(booking.getDateIn().atStartOfDay()));
             statement.setTimestamp(6, Timestamp.valueOf(booking.getDateOut().atStartOfDay()));
             statement.setString(4, booking.getStatus().toString());
-            //statement.setString(3, booking.getRoom().getRoomType().toString());
+            statement.setString(8, booking.getRoom().getRoomType().toString());
             if(booking.getRoom() != null){
                 statement.setInt(3, booking.getRoom().getId());
             }else {
@@ -238,7 +238,7 @@ public class JdbcBookingDao extends AbstaractFuncForDao implements BookingDaoInt
                 .setStatus(Status.valueOf(resultSet.getString(BOOKING_STATUS).toUpperCase()))
                 .setDateIn(resultSet.getTimestamp(BOOKING_ID_DATE_IN))
                 .setDateOut(resultSet.getTimestamp(BOOKING_ID_DATE_OUT))
-                .setRoomType(TypeRoom.valueOf(resultSet.getString(3).toUpperCase()))//not sure
+                .setRoomType(TypeRoom.valueOf(resultSet.getString(8).toUpperCase()))//not sure
                 .build();
     }
 

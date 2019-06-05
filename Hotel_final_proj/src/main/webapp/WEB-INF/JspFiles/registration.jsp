@@ -41,6 +41,12 @@
     <input class="submit-button" type="submit" value=<fmt:message key="sign.up"/>>
 </form>
 
+    <c:choose>
+    <c:when test="${success != null}">
+        <fmt:message key="message.complete"/>
+    </c:when>
+     </c:choose>
+
 <c:forEach items="${errors}" var="item">
     <p class="text-danger"><fmt:message key="${item}"/></p>
     <br>

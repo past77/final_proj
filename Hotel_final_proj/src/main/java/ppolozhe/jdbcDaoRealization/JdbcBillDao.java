@@ -22,24 +22,22 @@ public class JdbcBillDao implements BillDaoInterface {
     MessageForLogger messageForLogger = new MessageForLogger();
     private static final Logger LOGGER = Logger.getLogger(JdbcBillDao.class);
     private ConnectionToDatabase connectionToDatabase;
-    private static final int COLUMN_ID_INDEX = 2;
-    private static final int COLUMN_PRICE_INDEX = 1;
 
     private static final String COLUMN_ID = "id";
     private static final String COLUMN_PRICE = "price";
 
-    private static final String INSERT_BILL = "INSERT INTO `hotel`.`bills` (`price`) VALUES (?);";
-    private static final String UPDATE_BILL = "UPDATE `hotel`.`bills` SET `price`=? WHERE `id`=?;";
-    private static final String DELETE_BILL= "DELETE FROM `hotel`.`bills` WHERE `id`=?;";
+    private static final String INSERT_BILL = "INSERT INTO `hotel`.`bill` (`price`) VALUES (?);";
+    private static final String UPDATE_BILL = "UPDATE `hotel`.`bill` SET `price`=? WHERE `id`=?;";
+    private static final String DELETE_BILL= "DELETE FROM `hotel`.`bill` WHERE `id`=?;";
 
 
-    private static final String FIND_ALL = "SELECT * FROM bills";
+    private static final String FIND_ALL = "SELECT * FROM bill";
     private static final String FIND_BY_ID = FIND_ALL + " WHERE id = ?";
-    private static final String FIND_BY_BOOKING = FIND_ALL + " INNER JOIN bookings ON bills.id = bookings.bills_id " +
-            " WHERE bookings.id = ?";
+    private static final String FIND_BY_BOOKING = FIND_ALL + " INNER JOIN booking ON bill.id = booking.idBill " +
+            " WHERE booking.id = ?";
 
-    JdbcBillDao(ConnectionToDatabase connectionManager) {
-        this.connectionToDatabase = connectionManager;
+    JdbcBillDao(ConnectionToDatabase connectionToDatabase) {
+        this.connectionToDatabase = connectionToDatabase;
     }
 
 
@@ -108,7 +106,7 @@ public class JdbcBillDao implements BillDaoInterface {
              PreparedStatement statement =
                      connection.prepareStatement(INSERT_BILL,
                              Statement.RETURN_GENERATED_KEYS)) {
-            statement.setInt(COLUMN_PRICE_INDEX, bill.getPrice());
+            statement.setInt(1, bill.getPrice());
             insertedRow = statement.executeUpdate();
             bill.setId(Statement.RETURN_GENERATED_KEYS);
         } catch (SQLException e) {
@@ -124,8 +122,8 @@ public class JdbcBillDao implements BillDaoInterface {
         try (JdbcConnection connection = connectionToDatabase.getConnection();
              PreparedStatement statement =
                      connection.prepareStatement(UPDATE_BILL)) {
-            statement.setInt(COLUMN_PRICE_INDEX, bill.getPrice());
-            statement.setInt(COLUMN_ID_INDEX, bill.getId());
+            statement.setInt(1, bill.getPrice());
+            statement.setInt(2, bill.getId());
             updatedRow = statement.executeUpdate();
         } catch (SQLException e) {
             LOGGER.info(JdbcBillDao.class.toString() + " UPDATE" + e.getMessage());

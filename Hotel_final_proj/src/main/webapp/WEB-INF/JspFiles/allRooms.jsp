@@ -11,9 +11,6 @@
 <body>
 <%@include file="header.jsp" %>
 
-<%--
-<form name="loginForm" method="POST" action="login/authorization" autocomplete="on">
---%>
 
 <div class="register">
     <table align="center">
@@ -64,8 +61,9 @@
                 </td>
                 <td>
                     <div class="col-md-2">
-                         <form action="/profile/rooms/delete" method="post">
-                         submit-button" type="submit"><fmt:message key="rooms.delete"/></button>
+                        <form action="/profile/rooms/delete" method="post">
+                          <input type="hidden" name="delete" value="${item.id}"/>
+                          <button class="submit-button" type="submit"><fmt:message key="rooms.delete"/></button>
                         </form>
                     </div>
                 </td>

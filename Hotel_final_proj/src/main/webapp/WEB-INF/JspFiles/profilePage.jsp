@@ -30,22 +30,17 @@
 
 <c:if test="${user.accounts.statusUser.toString() == 'admin'}">
  <div class="col-md-2 menu">
-        <a href="/profile/addRooms"><fmt:message key="addRooms.page"/></a>
+        <a href="/profile/addRoom"><fmt:message key="addRooms.page"/></a>
     </div>
-        <div class="col-md-2">
-        </div>
-
-        <div class="col-md-2 menu">
-            <a href="/profile/rooms"><fmt:message key="rooms.page"/></a>
-        </div>
-         <div class="col-md-2">
-            </div>
-
             <div class="col-md-2 menu">
                 <a href="/profile/processedBookings"><fmt:message key="booking.processed.page"/></a>
             </div>
             <a href="/allRooms"><fmt:message key="allRooms.page"/></a>
-
+     <c:choose>
+        <c:when test="${success != null}">
+            <fmt:message key="message.complete"/>
+        </c:when>
+         </c:choose>
             </c:if>
 
 

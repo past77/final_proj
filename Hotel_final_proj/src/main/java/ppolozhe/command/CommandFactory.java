@@ -20,16 +20,20 @@ public class CommandFactory {
        commands.put("/login/signin", SignIn.getInstance());
         commands.put("/login", LoginPage.getInstance());
         commands.put("profile/rooms", AllRooms.getInstance());
+        commands.put("/profile/bookings/delete", DeleteBookings.getInstance());
         commands.put("/rooms", RoomsPage.getInstance());
         commands.put("/rooms/find", FreeRooms.getInstance());
+        commands.put("/profile/bookings", UsersBookings.getInstance());
         commands.put("/profile", ProfilePage.getInstance());
         commands.put("/logout", Logout.getInstance());
         commands.put("/registration", RegisterPage.getInstance());
-        commands.put("/profile/allRooms", AllRooms.getInstance());
+        commands.put("/allRooms", AllRooms.getInstance());
         commands.put("/profile/addBook/find", FreeRooms.getInstance());
         commands.put("/profile/addBook", AddBookPage.getInstance());
         commands.put("/profile/addBook/add", AddBook.getInstance());
-
+        commands.put("/profile/addRoom/add", AddRooms.getInstance());
+        commands.put("/profile/addRoom", AddRoomPage.getInstance());
+        commands.put("/profile/rooms/delete", DeleteRoom.getInstance());
     }
 
     private static class Holder {
