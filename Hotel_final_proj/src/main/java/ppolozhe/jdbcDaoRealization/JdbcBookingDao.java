@@ -52,7 +52,7 @@ public class JdbcBookingDao extends AbstaractFuncForDao implements BookingDaoInt
     private static final String FIND_ALL = "SELECT * FROM " + BOOKING_TABLE;
     private static final String FIND_BY_ID = FIND_ALL + "WHERE" + BOOKING_ID + " = ?";
     private static final String FIND_BY_USER = FIND_ALL + " INNER JOIN users ON " + BOOKING_TABLE +"."+ BOOKING_ID_USER + " = users.id WHERE users.id = ?";
-    private static final String FIND_PROCESSED = FIND_ALL + "WHERE status = \"processed\"";
+    private static final String FIND_PROCESSED = FIND_ALL + " WHERE status = \"processed\" ";
     private static final String LIMIT = "LIMIT ?,? ";
 
 

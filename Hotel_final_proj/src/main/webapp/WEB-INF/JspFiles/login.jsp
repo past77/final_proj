@@ -16,7 +16,7 @@
 </head>
 
 <body>
-<%--<%@include file="header.jsp" %>--%>
+<%@include file="header.jsp" %>
 <form class="register" method="POST" action="/login/signin" autocomplete="on">
     <span class="text-primary"><i class="fa fa-envelope-o" aria-hidden="true"></i><fmt:message key="login.page"/> </span>
     <input type="text" name="login" placeholder="example@mail.com" value="${login}" required="required">

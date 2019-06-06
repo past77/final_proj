@@ -34,7 +34,7 @@ public class JdbcBillDao implements BillDaoInterface {
     private static final String FIND_ALL = "SELECT * FROM bill";
     private static final String FIND_BY_ID = FIND_ALL + " WHERE id = ?";
     private static final String FIND_BY_BOOKING = FIND_ALL + " INNER JOIN booking ON bill.id = booking.idBill " +
-            " WHERE booking.id = ?";
+            " WHERE booking.idbook = ?";
 
     JdbcBillDao(ConnectionToDatabase connectionToDatabase) {
         this.connectionToDatabase = connectionToDatabase;

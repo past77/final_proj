@@ -42,7 +42,7 @@ public class JdbcUserDao extends AbstaractFuncForDao implements UserDaoInterface
     private static final String FIND_BY_ID = FIND_ALL + " WHERE "+ ID +" = ?";
     private static final String FIND_BY_FULL_NAME = FIND_ALL + " WHERE "+ SURNAME +" = ? AND "+ FIRST_NAME +" = ?";
     private static final String FIND_BY_BOOKING = FIND_ALL + " INNER JOIN booking ON "+ USER_TABLE +"."+ ID +" = booking.idUser " +
-            " WHERE booking.id = ?";
+            " WHERE booking.idbook = ?";
 
 
     JdbcUserDao(ConnectionToDatabase connectionManager) {

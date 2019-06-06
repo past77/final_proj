@@ -4,7 +4,6 @@ import ppolozhe.enums.TypeRoom;
 
 public class Room {
     private int id;
-    private int floor;
     private int number;
     private int roomCap;
     private int price;
@@ -31,13 +30,6 @@ public class Room {
         this.id = id;
     }
 
-    public int getFloor() {
-        return floor;
-    }
-
-    public void setFloor(int floor) {
-        this.floor = floor;
-    }
 
     public int getNumber() {
         return number;

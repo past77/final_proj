@@ -34,6 +34,7 @@ public class CommandFactory {
         commands.put("/profile/addRoom/add", AddRooms.getInstance());
         commands.put("/profile/addRoom", AddRoomPage.getInstance());
         commands.put("/profile/rooms/delete", DeleteRoom.getInstance());
+        commands.put("/profile/processedBookings", ProcessedBooking.getInstance());
     }
 
     private static class Holder {

@@ -55,12 +55,12 @@ public class JdbcRoomDao extends AbstaractFuncForDao implements RoomDaoInterface
             "WHERE status = 'confirmed' and (? < " + BOOKING + ".dateOut AND  ? > " + BOOKING + ".dateIn)) " +
             "AND " + ROOM_TABLE + "." + ROOM_TYPE + " = ?";
     private static final String FIND_BY_BOOKING = FIND_ALL + " INNER JOIN " + BOOKING + " ON " + ROOMID + " = " + BOOKINGROOM + " " +
-            " WHERE booking.id = ? AND " + ROOMID + " NOT IN (" +
+            " WHERE booking.idbook = ? AND " + ROOMID + " NOT IN (" +
             "SELECT " + BOOKINGROOM + " " +
             "FROM " + ROOM_TABLE + " " +
             "INNER JOIN " + BOOKING + " ON " + BOOKINGROOM + " = " + ROOMID + " " +
             "WHERE status = 'confirmed' and (? < booking.dateOut AND  ? > booking.dateIn)) " +
-            "AND room.typeRoom = ? and room.capacity > ?";
+            "AND room.type = ?";
 
     public JdbcRoomDao(){}
 
