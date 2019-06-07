@@ -30,6 +30,16 @@ public class Room {
         this.id = id;
     }
 
+    @Override
+    public String toString() {
+        return "Room{" +
+                "id=" + id +
+                ", number=" + number +
+                ", roomCap=" + roomCap +
+                ", price=" + price +
+                ", typeRoom=" + typeRoom +
+                '}';
+    }
 
     public int getNumber() {
         return number;

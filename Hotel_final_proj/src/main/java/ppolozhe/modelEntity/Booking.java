@@ -48,6 +48,20 @@ public class Booking {
         this.dateIn = dateIn.toLocalDateTime().toLocalDate();
     }
 
+    @Override
+    public String toString() {
+        return "Booking{" +
+                "id=" + id +
+                ", user=" + user +
+                ", room=" + room +
+                ", bill=" + bill +
+                ", dateIn=" + dateIn +
+                ", dateOut=" + dateOut +
+                ", statusEnum=" + statusEnum +
+                ", typeRoom=" + typeRoom +
+                '}';
+    }
+
     public Room getRoom() {
         return room;
     }
@@ -149,10 +163,6 @@ public class Booking {
         return this;
     }
 
-//    public Builder setPersons(int persons) {
-//        this.persons = persons;
-//        return this;
-//    }
 
         public Builder setDateIn(LocalDate dateIn) {
             this.dateIn = dateIn;
@@ -174,7 +184,6 @@ public class Booking {
                     booking.setDateOut(dateOut);
                     booking.setUser(user);
                     booking.setRoomType(typeRoom);
-            //booking.setPersons(persons);
             return booking;
         }
     }

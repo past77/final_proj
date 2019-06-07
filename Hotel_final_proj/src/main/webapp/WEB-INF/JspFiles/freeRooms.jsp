@@ -18,6 +18,7 @@
 <%@include file="header.jsp" %>
 
 <form class="register" name="addBookingForm" method="POST" action="/rooms/find" autocomplete="on">
+   <div>
     <input type="hidden" name="page" value="freeRooms">
     <table align="center">
         <tr>
@@ -41,9 +42,11 @@
                 </select>
             </td>
         </tr>
-<input type="submit" class="submit-button" value=<fmt:message key="bookings.find"/>>
+</div>
+
+
 </form>
-    <div class="register">
+    <div class="register2">
         <table align="center">
             <tr>
                 <th>
@@ -85,7 +88,7 @@
                         </div>
                     </td>
                     <td>
-                        <div class="col-md-2">
+                        <div >
                             <fmt:message key="${item.roomType.toString()}"></fmt:message>
                         </div>
                     </td>
@@ -93,7 +96,9 @@
             </c:forEach>
         </table>
     </div>
-
+<div>
+          <input type="submit" class="submit-button" value=<fmt:message key="bookings.find"/>
+</div>
 
 <c:forEach items="${errors}" var="item">
     <p class="text-danger"><fmt:message key="${item}"/></p>

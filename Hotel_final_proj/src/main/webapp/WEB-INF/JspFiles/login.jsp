@@ -25,7 +25,9 @@
     <input name="password"  placeholder="********" required="required"
            type="password">
     <br>
-    <input class="submit-button" type="submit" value=<fmt:message key="sign.in"/>>
+    <div >
+    <input class="submit-button" type="submit" value=<fmt:message key="sign.in"/>
+    </div>
 </form>
 
 <c:forEach items="${errors}" var="item">

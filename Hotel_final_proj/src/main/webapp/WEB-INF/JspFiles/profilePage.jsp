@@ -12,30 +12,30 @@
 
 <c:if test="${user.accounts.statusUser.toString() == 'user'}">
 
-<div class="col-md-2 menu">
+<div class="prof">
         <a href="/profile/addBook"><fmt:message key="addBoking.page"/></a>
               </div>
-<div class="col-md-2">
-    </div>
 
-    <div class="col-md-2 menu">
+    <div class="prof">
         <a href="/profile/bookings"><fmt:message key="bookings.page"/></a>
     </div>
      <c:choose>
     <c:when test="${success != null}">
-        <fmt:message key="message.complete"/>
+       <div class = "suc"> <fmt:message key="message.complete"/></div>
     </c:when>
      </c:choose>
 </c:if>
 
 <c:if test="${user.accounts.statusUser.toString() == 'admin'}">
- <div class="col-md-2 menu">
+ <div class="prof">
         <a href="/profile/addRoom"><fmt:message key="addRooms.page"/></a>
     </div>
-            <div class="col-md-2 menu">
+            <div class="prof">
                 <a href="/profile/processedBookings"><fmt:message key="booking.processed.page"/></a>
             </div>
+            <div class="prof">
             <a href="/allRooms"><fmt:message key="allRooms.page"/></a>
+            </div>
      <c:choose>
         <c:when test="${success != null}">
             <fmt:message key="message.complete"/>

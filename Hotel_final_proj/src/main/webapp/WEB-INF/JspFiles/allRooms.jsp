@@ -63,7 +63,8 @@
                     <div class="col-md-2">
                         <form action="/profile/rooms/delete" method="post">
                           <input type="hidden" name="delete" value="${item.id}"/>
-                          <button class="submit-button" type="submit"><fmt:message key="rooms.delete"/></button>
+                          <div><button class="submit-button" type="submit"><fmt:message key="rooms.delete"/></button>
+                        </div>
                         </form>
                     </div>
                 </td>

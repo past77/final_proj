@@ -15,7 +15,6 @@ public class FormatDateTag extends TagSupport {
 
     private static final Logger LOGGER = Logger.getLogger(FormatDateTag.class);
 
-
     protected Temporal value;
     protected String pattern;
     private String var;

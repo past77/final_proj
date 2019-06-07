@@ -1,8 +1,7 @@
-
 body {
     padding: 0px;
      margin: 0px;
-     background-color: url(/resources/img/backg.jpg);
+     background: url(/resources/img/backg.jpg);
      background-size: cover;
      background-attachment: fixed;
 }

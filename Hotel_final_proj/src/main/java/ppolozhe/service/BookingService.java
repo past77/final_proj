@@ -41,7 +41,7 @@ public class BookingService {
 
     public void update(List<Booking> bookings) throws Exception {
         for (Booking booking : bookings) {
-            System.out.println(booking);
+            System.out.println("booking in BookingService: " + booking);
             if (booking.getStatus().equals(Status.CONFIRMED)) {
                 updateConfirmed(booking);
             } else {
@@ -53,10 +53,11 @@ public class BookingService {
     private void updateConfirmed(Booking booking) throws Exception {
         Bill bill = createBill(booking);
         booking.setBill(bill);
-        System.out.println(bill);
+        System.out.println("bill in updateConfirmed" + bill);
         try {
             connectionManager.startTransaction();
             daoFactory.getBillDao().create(bill);
+            System.out.println("booking after createbill : " + booking);
             update(booking);
             connectionManager.commit();
         } catch (Exception e) {

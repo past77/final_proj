@@ -33,9 +33,13 @@
                 </select>
             </td>
         </tr>
-        <input type="submit" class="submit-button" value=<fmt:message key="bookings.find"/>
+ <div>
+<input type="submit" class="submit-button" value=<fmt:message key="bookings.find"/>
+            </div>
     </table>
+
 </form>
+
     <div class="register">
         <table align="center">
             <tr>
@@ -91,8 +95,9 @@
                                 <input type="hidden" value="${dateOut}" name="dateOut">
                                 <input type="hidden" value="${dateIn}" name="dateIn">
                                 <input type="hidden" value="${typeRoom}" name="typeRoom">
+                               <div>
                                 <button class="submit-button" type="submit"><fmt:message key="bookings.book"/></button>
-
+                                </div>
                             </form>
                         </div>
                     </td>
@@ -100,6 +105,7 @@
             </c:forEach>
         </table>
     </div>
+
 <c:forEach items="${errors}" var="item">
     <p class="text-danger"><fmt:message key="${item}"/></p>
     <br>

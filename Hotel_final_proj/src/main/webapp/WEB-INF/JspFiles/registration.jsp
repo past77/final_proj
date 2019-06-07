@@ -37,8 +37,9 @@
         <span><i class="fa fa-mobile" aria-hidden="true"></i><fmt:message key="registration.phone"/></span>
         <input type="text" placeholder="+380_ _ _ _ _ _ _ _" name="phone" value="${phone}" required="required">
     </div>
-
-    <input class="submit-button" type="submit" value=<fmt:message key="sign.up"/>>
+ <div>
+    <input class="submit-button" type="submit" value=<fmt:message key="sign.up"/>
+    </div>
 </form>
 
     <c:choose>

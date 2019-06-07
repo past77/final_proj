@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 
 <%@ taglib prefix="custom" uri="http://ppolozhe" %>
 
@@ -23,9 +24,14 @@
 
             <th>
                 <div class="col-md-2">
-                    <fmt:message key="registration.last.name"/>
+                    <fmt:message key="registration.name"/>
                 </div>
             </th>
+              <th>
+                            <div class="col-md-2">
+                                <fmt:message key="registration.surname"/>
+                            </div>
+                        </th>
             <th>
                 <div class="col-md-2">
                     <fmt:message key="registration.phone"/>
@@ -61,18 +67,33 @@
             <input type="hidden" name="id" value="${item.id}"/>
            <input type="hidden" name="typeRoom" value="${item.typeRoom}"/>
            <c:if test="${item.room!=null}">
-               <input type="hidden" name="idRooms" value="${item.room.id}"/>
+               <input type="hidden" name="idRoom" value="${item.room.id}"/>
                <input type="hidden" name="roomsPrice" value="${item.room.price}"/>
            </c:if>
 
-              <tr>
-
-                          <td>
-                         <div class="col-md-2">
-                                <c:out value="${item.user.phoneNumber}"/>
+            <tr>
+            <td>
+                <div class="col-md-2">
+                    <c:out value="${item.user.firstName}"/>
+                   </div>
+                 </td>
+                     <td>
+                     <div class="col-md-2">
+                       <c:out value="${item.user.surname}"/>
                     </div>
-                    </td>
+             </td
+
                   <td>
+                                  <div class="col-md-2">
+                                    <c:out value="${item.user.id}"/>
+                                 </div>
+                          </td>
+              <td>
+              <div class="col-md-2">
+                  <c:out value="${item.user.phoneNumber}"/>
+              </div>
+                </td>
+               <td>
                      <div class="col-md-2">
                            <tags:localDate date="${item.dateIn}"/>
                     </div>
@@ -112,7 +133,9 @@
             </tr>
           </c:forEach>
         </table>
+        <div>
          <button class="submit-button" type="submit"><fmt:message key="booking.update"/></button>
+          </div>
            </form>
 
           <c:forEach items="${errors}" var="item">

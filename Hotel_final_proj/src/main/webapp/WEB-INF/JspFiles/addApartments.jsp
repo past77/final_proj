@@ -44,8 +44,9 @@
         </tr>
 
     </table>
-
-    <input type="submit" value=<fmt:message key="bookings.create"/>>
+<div>
+    <input type="submit" value=<fmt:message key="bookings.create"/>
+    </div>
 </form>
 <c:forEach items="${errors}" var="item">
     <p class="text-danger"><fmt:message key="${item}"/></p>

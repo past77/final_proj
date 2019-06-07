@@ -34,7 +34,7 @@ public class AddBook implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         Booking booking = createBookingFromRequest(request);
-
+    LOGGER.info("GET USER_______: "+booking.getUser());
         List<String> errors = validate(booking);
         LOGGER.info("In addbook!");
         if(!errors.isEmpty()){

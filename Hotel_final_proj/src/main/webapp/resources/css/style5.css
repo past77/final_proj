@@ -1,0 +1,210 @@
+@import url('https://fonts.googleapis.com/css?family=Hind');
+@import url('https://fonts.googleapis.com/css?family=Montserrat:500');
+
+body {
+    padding: 0px;
+        margin: 0px;
+        background: url(/resources/img/bg.jpg);
+        background-size: cover;
+        background-attachment: fixed;
+}
+
+
+
+.suc{
+ font-family: 'Montserrat', sans-serif;
+text-align: center;
+color: yellow !important;
+font-family: 'Hind', sans-serif;
+font-size: 38px !important;
+}
+
+
+
+li{
+margin: 0 20 0 20;
+display: inline-block;
+}
+li a:hover {
+  background-color: #555;
+  color: white;
+}
+
+a, a:visited, a:active, .language-btn {
+    margin-top: 18px;
+    color: #DAA520 !important;
+    font-family: 'Hind', sans-serif;
+    font-size: 18px !important;
+    text-shadow: 1px 1px 2px black;
+    text-decoration: none !important;
+
+}
+
+.welcome-title {
+    margin-top: 200px;
+    text-align: center;
+    text-transform: uppercase;
+    font-family: 'Montserrat', sans-serif;
+    color: yellow;
+    font-size: 72px;
+    text-shadow: 1px 1px 15px #757575;
+
+}
+
+.my-title {
+    margin-top: 100px;
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    color: #DAA520;
+    font-size: 16px;
+    text-shadow: 1px 1px 15px #757575;
+
+}
+
+.ule {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.4);
+  width : 100%;
+}
+
+.ule2 {
+position: relative;
+left:870px;
+top:-87px;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+ background: rgba(255, 255, 255, 0.0);
+
+}
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: #DAA520;
+  text-align: center;
+  padding: 12px 14px;
+  text-decoration: none;
+}
+
+/* Change the link color to #111 (black) on hover */
+li a:hover {
+  background-color: #111;
+}
+
+.lang{
+margin-left : 100px;
+margin-right : 0px;
+}
+.dropdown-menu{
+display: inline-block;
+margin-left: 70px;
+}
+
+.text-primary {
+    color:black !important;
+}
+
+.register {
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 10px;
+    margin-top: 120px;
+    padding: 10px 10px 20px 10px;
+    width: 40%;
+
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.mytable table {
+    color: red;
+    width: 1500px;
+}
+
+.prof  {
+display:block;
+background-color :#B18904;
+width : 20%;
+background: rgba(255, 255, 255, 0.4);
+border-radius: 8px;
+padding: 10px 10px 20px 10px;
+}
+
+.mycont {
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 10px;
+    margin-top: 80px;
+    padding: 10px 10px 20px 10px;
+    width: 80%;
+    background:black;
+
+}
+
+#text-primary {
+    color: #795548;
+}
+
+#text {
+    margin: 20px 0 40px 0;
+    font-size: 18px;
+    font-family: 'Montserrat', sans-serif;
+    color: #424242;
+    text-shadow: 1px 1px 10px #757575;
+}
+
+i {
+    float: center;
+    display: block;
+    width: 525px;
+}
+
+input br, br {
+    margin-bottom: 30px;
+}
+
+input {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #424242;
+    width: 200px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.submit-button {
+    padding: 10px 20px 10px 20px;
+    margin: 10px 0px 0px 0px;
+    background: rgba(78, 52, 46, 0.7);
+    border-radius: 5px;
+    text-align: center;
+    border: none;
+    color: yellow;
+    text-shadow: 1px 1px 10px #757575;
+
+    font-family: 'Montserrat', sans-serif;
+}
+
+.my-pagination {
+    padding: 10px 20px 10px 20px;
+    margin: 10px 0px 0px 0px;
+    background: transparent;
+    border-radius: 5px;
+    text-align: center;
+    border: none;
+    color:  rgba(255, 255, 255, 0.4);
+    text-shadow: 1px 1px 10px #757575;
+
+    font-family: 'Montserrat', sans-serif;
+}
+.submit-button {
+margin-left :280px;
+
+}
+
+
+

@@ -2,7 +2,6 @@ package ppolozhe.command;
 
 import ppolozhe.dto.JdbcDto;
 import ppolozhe.modelEntity.Booking;
-import ppolozhe.modelEntity.Room;
 import ppolozhe.service.BookingService;
 import ppolozhe.service.RoomService;
 

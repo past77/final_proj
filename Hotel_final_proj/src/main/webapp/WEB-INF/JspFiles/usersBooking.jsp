@@ -69,6 +69,7 @@
             </th>
             <th>
                 <div class="col-md-2">
+
                     <fmt:message key="${item.status.toString()}"/>
                 </div>
             </th>

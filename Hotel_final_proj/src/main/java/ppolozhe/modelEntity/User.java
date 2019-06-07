@@ -46,16 +46,9 @@ public class User {
         this.accounts = accounts;
     }
 
-    public List<Booking> getBookingList() {
-        return bookingList;
-    }
 
     public Accounts getAccounts() {
         return accounts;
-    }
-
-    public void setBookingList(List<Booking>  bookingList) {
-        this.bookingList =  bookingList;
     }
 
     public static class Builder {

@@ -43,10 +43,12 @@ public class JdbcBookingDao extends AbstaractFuncForDao implements BookingDaoInt
             + "VALUES (?, ?, ?, ?, ?, ?) ";
     private static final String UPDATE = "UPDATE " + BOOKING_TABLE + " SET "
             + BOOKING_ID_ROOM + " = ?, "
-            + BOOKING_ID_USER + " = ?, "
             + BOOKING_ID_DATE_IN + " = ?, "
-            + BOOKING_ID_DATE_OUT + " = ? "
-            + "WHERE + " + BOOKING_ID + " = ?";
+            + BOOKING_ID_DATE_OUT + " = ?, "
+            + BOOKING_STATUS + " = ?, "
+            + BOOKING_TYPE + " = ?, "
+            + "idBill" + " = ? "
+            + "WHERE " + BOOKING_ID + " = ?";
     private static final String DELETE = "DELETE FROM " + BOOKING_TABLE + " WHERE " + BOOKING_ID + " = ?";
 
     private static final String FIND_ALL = "SELECT * FROM " + BOOKING_TABLE;
@@ -71,6 +73,7 @@ public class JdbcBookingDao extends AbstaractFuncForDao implements BookingDaoInt
     @Override
     public boolean create(Booking booking) throws Exception {
         int insertedRow = 0;
+        LOGGER.info(" booking.getUser().getAccounts().getId()" + booking.getUser().getAccounts().getId());
         try (JdbcConnection connection = connectionToDatabase.getConnection();
              PreparedStatement statement = connection.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS))
         {
@@ -84,7 +87,7 @@ public class JdbcBookingDao extends AbstaractFuncForDao implements BookingDaoInt
             booking.setId(generateId(statement));
         } catch (SQLException e) {
             e.printStackTrace();
-            LOGGER.info(JdbcBookingDao.class.toString() + "create()" + e.getMessage());
+            LOGGER.info(JdbcBookingDao.class.toString() + " create()" + e.getMessage());
             throw new Exception();
         }
         return insertedRow > 0;
@@ -108,29 +111,31 @@ public class JdbcBookingDao extends AbstaractFuncForDao implements BookingDaoInt
     @Override
     public boolean update(Booking booking) throws Exception {
         int updatedRow = 0;
+        LOGGER.info("booking.getUser " +  booking.getUser());
         try (JdbcConnection connection = connectionToDatabase.getConnection();
              PreparedStatement statement =
                      connection.prepareStatement(UPDATE)) {
-            statement.setTimestamp(5, Timestamp.valueOf(booking.getDateIn().atStartOfDay()));
-            statement.setTimestamp(6, Timestamp.valueOf(booking.getDateOut().atStartOfDay()));
+            statement.setTimestamp(2, Timestamp.valueOf(booking.getDateIn().atStartOfDay()));
+            statement.setTimestamp(3, Timestamp.valueOf(booking.getDateOut().atStartOfDay()));
             statement.setString(4, booking.getStatus().toString());
-            statement.setString(8, booking.getRoom().getRoomType().toString());
+            statement.setString(5, booking.getTypeRoom().toString());
             if(booking.getRoom() != null){
-                statement.setInt(3, booking.getRoom().getId());
+                statement.setInt(1, booking.getRoom().getId());
             }else {
-                statement.setNull(3, Types.INTEGER);
+                statement.setNull(1, Types.INTEGER);
             }
             if(booking.getUser() != null) {
-                statement.setInt(2, booking.getUser().getAccounts().getId());
+                statement.setInt(6, booking.getUser().getAccounts().getId());
             } else {
-                statement.setNull(2, Types.INTEGER);
+                statement.setNull(6, Types.INTEGER);
             }
-//            if (booking.getBill() != null) {
-//                statement.setInt(7, booking.getBill().getId());
-//            } else {
-//                statement.setNull(7, Types.INTEGER);
-//            }
-            statement.setInt(1, booking.getId());
+           if (booking.getBill() != null) {
+               LOGGER.info("_________________________________" + booking.getBill().getId());
+               statement.setInt(6, booking.getBill().getId());
+           } else {
+               statement.setNull(6, Types.INTEGER);
+           }
+            statement.setInt(7, booking.getId());
             updatedRow = statement.executeUpdate();
         } catch (SQLException e) {
             LOGGER.info(JdbcBookingDao.class.toString() + "update" + e.getMessage());

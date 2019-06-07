@@ -19,6 +19,7 @@ import java.util.Optional;
  */
 public class JdbcBillDao implements BillDaoInterface {
 
+    private static int id_bill;
     MessageForLogger messageForLogger = new MessageForLogger();
     private static final Logger LOGGER = Logger.getLogger(JdbcBillDao.class);
     private ConnectionToDatabase connectionToDatabase;
@@ -58,7 +59,9 @@ public class JdbcBillDao implements BillDaoInterface {
                      connection.prepareStatement(FIND_BY_BOOKING)){
             statement.setInt(1, booking.getId());
             ResultSet resultSet = statement.executeQuery();
+            LOGGER.info("resultOFBILL_____RESULTSET: " + resultSet);
             result = getBillFromResultSet(resultSet);
+            LOGGER.info("resultOFBILL_____: " + result);
         } catch (SQLException e) {
             LOGGER.info(JdbcBillDao.class.toString() + "FIND_BY_BOOKING" + e.getMessage());
             throw new Exception();
@@ -102,19 +105,24 @@ public class JdbcBillDao implements BillDaoInterface {
     @Override
     public boolean create(Bill bill) throws Exception {
         int insertedRow = 0;
+        id_bill++;
         try (JdbcConnection connection = connectionToDatabase.getConnection();
              PreparedStatement statement =
                      connection.prepareStatement(INSERT_BILL,
                              Statement.RETURN_GENERATED_KEYS)) {
+            LOGGER.info( "Statement.RETURN_GENERATED_KEYS_ : " + Statement.RETURN_GENERATED_KEYS);
             statement.setInt(1, bill.getPrice());
             insertedRow = statement.executeUpdate();
-            bill.setId(Statement.RETURN_GENERATED_KEYS);
+            bill.setId(id_bill);
         } catch (SQLException e) {
             LOGGER.info(JdbcBillDao.class.toString() + " CREATE" + e.getMessage());
             throw new Exception();
         }
         return insertedRow > 0;
     }
+
+   // private int generateId(PreparedStatement statement) {
+    //}
 
     @Override
     public boolean update(Bill bill) throws Exception {
@@ -168,6 +176,8 @@ public class JdbcBillDao implements BillDaoInterface {
     }
 
     private Bill buildBill(ResultSet resultSet) throws SQLException {
+        LOGGER.info("resultSet.getInt(COLUMN_ID): " + resultSet.getInt(2));
+        LOGGER.info("resultSet.getInt(COLUMN_PRICE): " + resultSet.getInt(COLUMN_PRICE));
         return new Bill.Builder()
                 .setId(resultSet.getInt(COLUMN_ID))
                 .setPrice(resultSet.getInt(COLUMN_PRICE))
