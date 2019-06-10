@@ -14,6 +14,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Supplier;
 import java.util.logging.Logger;
 
 /**
@@ -45,7 +46,7 @@ public class JdbcUserDao extends AbstaractFuncForDao implements UserDaoInterface
             " WHERE booking.idbook = ?";
 
 
-    JdbcUserDao(ConnectionToDatabase connectionManager) {
+    public JdbcUserDao(ConnectionToDatabase connectionManager) {
         this.connectionToDatabase = connectionManager;
     }
 
@@ -75,6 +76,7 @@ public class JdbcUserDao extends AbstaractFuncForDao implements UserDaoInterface
         if(resultSet.isBeforeFirst()){
             while (resultSet.next()) {
                 result = Optional.of(buildUser(resultSet));
+                LOGGER.info("get__ " + result);
             }
         }
         return result;
@@ -93,12 +95,14 @@ public class JdbcUserDao extends AbstaractFuncForDao implements UserDaoInterface
     public Optional<User> find(int id) throws Exception {
         Optional<User> result = null;
         ResultSet resultSet = null;
-
+        LOGGER.info("id: "+ id);
         try (JdbcConnection connection = connectionToDatabase.getConnection();
              PreparedStatement statement =
                      connection.prepareStatement(FIND_BY_ID)){
+            LOGGER.info("id: "+ id);
             statement.setInt(1, id);
             resultSet = statement.executeQuery();
+
             result = getOneUser(resultSet);
         } catch (SQLException e) {
             LOGGER.info(JdbcUserDao.class.toString() + messageForLogger.FIND + e.getMessage());

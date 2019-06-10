@@ -2,14 +2,25 @@
 package ppolozhe.modelEntity;
 
 import java.util.List;
+import java.util.Optional;
 
 public class User {
     private int id;
+
+
     private String firstName;
     private String surname;
     private String phoneNumber;
     private List<Booking> bookingList;
     private Accounts accounts;
+    public User(){}
+
+    public User(int id, String name, String surname, String phoneNumber) {
+        this.id = id;
+        this.firstName = name;
+        this.surname = surname;
+        this.phoneNumber = phoneNumber;
+    }
 
     public int getId() {
         return id;
@@ -86,4 +97,17 @@ public class User {
             return user;
         }
     }
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", surname='" + surname + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", bookingList=" + bookingList +
+                ", accounts=" + accounts +
+                '}';
+    }
+
 }
+

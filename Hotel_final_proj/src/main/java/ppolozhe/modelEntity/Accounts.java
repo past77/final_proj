@@ -6,6 +6,13 @@ import java.util.Objects;
 
 public class Accounts {
 
+    public Accounts(int id, String login, String password, StatusUser statusUser) {
+        this.id = id;
+        this.login = login;
+        this.password = password;
+        this.statusUser = statusUser;
+    }
+
     private int id;
     private String login;
     private String password;
@@ -45,6 +52,13 @@ public class Accounts {
          accounts.setStatusUser(statusUser);
          return accounts;
         }
+    }
+
+    public Accounts(){}
+    public Accounts(int id, String login, String password) {
+        this.id = id;
+        this.login = login;
+        this.password = password;
     }
 
     public int getId() {

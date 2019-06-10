@@ -38,8 +38,9 @@ public class FrontController extends HttpServlet{
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String page = executeCommand(request, response);
-        LOGGER.info("PAGE_NAME: " + page);
+
         String path = "/WEB-INF/JspFiles/" + page + ".jsp";
+        // String path = String.format("/WEB-INF/JspFiles/%s.jsp ", page);
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(path);
        dispatcher.forward(request, response);
     }

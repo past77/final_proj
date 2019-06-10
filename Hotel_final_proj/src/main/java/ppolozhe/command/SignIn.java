@@ -34,19 +34,22 @@ public class SignIn implements Command{
         return Holder.INSTANCE;
     }
 
+    public SignIn(){}
+
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String login = request.getParameter(messageForUsers.LOGIN);
         String password = request.getParameter(messageForUsers.PASSWORD);
 
-    LOGGER.info("login: "+ login + "password: " + password);
+    LOGGER.info("login: "+ login + " password: " + password);
         List<String> errors = Validate(login, password);
-
         if (!errors.isEmpty()){
             setAttributesToRequest(request, login, errors);
             return messageForUsers.LOGIN;
         }
+        LOGGER.info("login: "+ login + " password: " + password);
         Optional<User> user = userService.findUserByLoginPassword(login, password);
+        LOGGER.info(user);
 
         LOGGER.info("USER:     " + user);
         if (!user.isPresent()) {

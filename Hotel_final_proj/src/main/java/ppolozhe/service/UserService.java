@@ -38,6 +38,7 @@ public class UserService {
         LOGGER.info(accounts);
         if (accounts.isPresent() && correctPassword(accounts.get(), password)) {
             LOGGER.info("accounts.get().getId(): "+accounts.get().getId());
+
             user = daoFactory.getUserDao().find(accounts.get().getId());
             LOGGER.info(user);
             user.get().setAccounts(accounts.get());

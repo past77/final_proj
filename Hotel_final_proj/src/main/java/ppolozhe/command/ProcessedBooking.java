@@ -50,13 +50,6 @@ public class ProcessedBooking implements Command{
         request.setAttribute("currentPage", page);
     }
 
-    private JdbcDto createBookingDtoFromBooking(Booking booking) {
-        return new JdbcDto.Builder()
-                .setTypeRoom(booking.getTypeRoom())
-                .setDateIn(booking.getDateIn())
-                .setDateOut(booking.getDateOut())
-                .build();
-    }
 
     private int getNumberOfPages() throws Exception {
         int numberOfRecords = bookingService.getNumberOfPagesForProcessedBookings();
