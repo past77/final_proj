@@ -2,7 +2,7 @@ package ppolozhe.controller;
 
 import ppolozhe.command.Command;
 import ppolozhe.command.CommandFactory;
-import ppolozhe.constants.MassageForUsers;
+import ppolozhe.constants.MessageForUsers;
 import ppolozhe.constants.MessageForLogger;
 import org.apache.log4j.Logger;
 
@@ -19,7 +19,7 @@ import java.io.IOException;
 public class FrontController extends HttpServlet{
     private static final Logger LOGGER = Logger.getLogger(FrontController.class);
     private CommandFactory commandFactory;
-    MassageForUsers messageForUsers = new MassageForUsers();
+    MessageForUsers messageForUsers = new MessageForUsers();
     MessageForLogger messageForLogger = new MessageForLogger();
 
     public FrontController() {

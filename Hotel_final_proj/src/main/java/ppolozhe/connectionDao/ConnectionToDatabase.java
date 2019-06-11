@@ -19,7 +19,6 @@ public class ConnectionToDatabase {
     private static final String PASSWORD = "rootroot";
 
     private static BasicDataSource dataSource;
-   // private DataSource dataSource;
    private static ThreadLocal<JdbcConnection> ThreadLocalConnection = new ThreadLocal<>();
 
     private ConnectionToDatabase() {
@@ -34,10 +33,7 @@ public class ConnectionToDatabase {
                 dataSource.setMaxTotal(20);
                 dataSource.setInitialSize(0);
             }
-//            InitialContext initialContext = new InitialContext();
-//            Context env  = (Context) initialContext.lookup("java:/comp/env");
-//            dataSource = (DataSource) env.lookup(DATABASE_URL);
-            LOGGER.info(ConnectionToDatabase.class.toString() +"happy");
+            LOGGER.info(ConnectionToDatabase.class.toString() +"  connection is ok");
         } catch (Exception e) {
             LOGGER.info(ConnectionToDatabase.class.toString() + "connection is not ok" + e.getMessage());
             throw new RuntimeException(e);
@@ -51,6 +47,12 @@ public class ConnectionToDatabase {
         LOGGER.info("CONNECTION INSTANCE");
         return DoLink.INSTANCE;
     }
+
+    /**
+     * get wrapper of connetion for single query, get wrapper of connection in transaction for multiply query,
+     * before getConnection() in service layer invoked startTransaction(), after commit() or rollbac(), which close connection
+     * @return wrapper of connetction
+     */
 
     public synchronized JdbcConnection getConnection() {
         if(ThreadLocalConnection.get() == null) {

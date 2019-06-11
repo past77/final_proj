@@ -10,25 +10,11 @@
 <head>
     <meta charset="UTF-8">
     <title>404</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/default.css">
 </head>
 <body>
-<div class="wrapper">
-    <div id="header-wrapper">
-        <div id="header" class="container">
-            <div id="logo">
-                <h1><a href="${pageContext.request.contextPath}/main/menu">HOME</a></h1>
-            </div>
-        </div>
-    </div>
-    <div id="banner">
-        <div class="container">
             <div class="title">
                 <h2>404. Page Not Found</h2>
             </div>
-        </div>
-
-    </div>
 </div>
 </body>
 </html>

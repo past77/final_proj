@@ -17,7 +17,6 @@ import java.util.List;
 
 public class UpdateBookingCommand implements Command {
 
-    private static final java.lang.String SPACE = " ";
     private BookingService bookingService;
 
     UpdateBookingCommand(BookingService bookingService) {
@@ -36,7 +35,6 @@ public class UpdateBookingCommand implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         List<Booking> bookings = createBookingsFromRequest(request);
-        System.out.println("bookings.id" + bookings.toString());
 
         List<String> errors = validate(bookings);
 
@@ -56,9 +54,9 @@ public class UpdateBookingCommand implements Command {
 
         Validator validator = Validator.getInstance();
 
-//        if(!validator.validateNumberAndDateUpdatedBookings(bookings)){
-//            errors.add("message.number.and.date.invalid");
-//        }
+        if(!validator.validateNumberAndDateUpdatedBookings(bookings)){
+            errors.add("message.number.and.date.invalid");
+        }
 
         return errors;
     }
@@ -76,22 +74,17 @@ public class UpdateBookingCommand implements Command {
                     .setDateIn(LocalDate.parse(request.getParameterValues("dateIn")[i]))
                     .setDateOut(LocalDate.parse(request.getParameterValues("dateOut")[i]))
                     .setRoomType(TypeRoom.valueOf(request.getParameterValues("typeRoom")[i].toUpperCase()))
-                    //.setUser(((User) request.getSession().getAttribute("user")))
                     .build();
-            System.out.println("getId: " + booking.getId());
             if (request.getParameterValues("status")[i].equals(Status.REJECTED.toString())) {
                 booking.setStatus(Status.REJECTED);
                 bookings.add(booking);
             }
-            System.out.println("!!!!!!!!!!!!!!Booking: "+booking.toString());
             if (request.getParameterValues("status")[i].equals(Status.CONFIRMED.toString())) {
-                String[] apartmentParameters = request.getParameterValues("status")[i].split(SPACE);
                 booking.setStatus(Status.CONFIRMED);
                 booking.setRoom(new Room.Builder()
                         .setId(Integer.parseInt(request.getParameter("idRoom")))
                         .setPrice(Integer.parseInt(request.getParameter("roomsPrice")))
                         .build());
-                System.out.println("!!!!!!!!!!!!!!Booking__2: "+booking.toString());
                 bookings.add(booking);
             }
         }

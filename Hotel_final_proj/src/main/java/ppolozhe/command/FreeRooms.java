@@ -1,5 +1,8 @@
 package ppolozhe.command;
 
+import ppolozhe.constants.JspConst;
+import ppolozhe.constants.MessageForLogger;
+import ppolozhe.constants.MessageForUsers;
 import ppolozhe.dto.JdbcDto;
 import ppolozhe.enums.TypeRoom;
 import ppolozhe.modelEntity.Room;
@@ -15,6 +18,8 @@ import java.util.List;
 
 public class FreeRooms implements Command {
     private RoomService roomService;
+    MessageForUsers messageForUsers = new MessageForUsers();
+    JspConst jspConst = new JspConst();
     private static final Logger LOGGER = Logger.getLogger(FreeRooms.class);
 
     FreeRooms(RoomService roomService) {
@@ -32,9 +37,6 @@ public class FreeRooms implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-       //LOGGER.info("LocalDate.parse(request.getParameter(dateIn)): "+ LocalDate.parse(request.getParameter("dateIn")));
-        ///LOGGER.info("LocalDate.parse(request.getParameter(dateOUT)): "+ LocalDate.parse(request.getParameter("dateOut")));
-
         JdbcDto jdbcDto = createBookingFromRequest(request);
         String page = createPageFromRequest(request);
         List<String> errors = validate(jdbcDto);
@@ -44,6 +46,9 @@ public class FreeRooms implements Command {
             return page;
         }
         List<Room> rooms = roomService.findFreeRooms(jdbcDto);
+        if (rooms == null || jdbcDto == null) {
+            request.getRequestDispatcher("NotFound").forward(request, response);
+        }
         setAttributesToRequest(request, jdbcDto, rooms);
         return page;
     }
@@ -59,13 +64,13 @@ public class FreeRooms implements Command {
 
     private void setAttributesToRequestWithErrors(HttpServletRequest request, JdbcDto bookingDto, List<String> errors) {
         setInputedAttributesToRequest(request, bookingDto);
-        request.setAttribute("errors", errors);
+        request.setAttribute(messageForUsers.ERRORS, errors);
     }
 
     private void setInputedAttributesToRequest(HttpServletRequest request, JdbcDto bookingDto) {
-        request.setAttribute("dateIn", bookingDto.getDateIn());
-        request.setAttribute("dateOut", bookingDto.getDateOut());
-        request.setAttribute("typeRoom", bookingDto.getTypeRoom().toString());
+        request.setAttribute(messageForUsers.DATE_IN, bookingDto.getDateIn());
+        request.setAttribute(messageForUsers.DATE_OUT, bookingDto.getDateOut());
+        request.setAttribute(messageForUsers.TYPE_ROOM, bookingDto.getTypeRoom().toString());
     }
 
 
@@ -75,7 +80,7 @@ public class FreeRooms implements Command {
         Validator validator = Validator.getInstance();
 
         if(!validator.validateDate(booking.getDateIn(), booking.getDateOut())){
-            errors.add("message.date.invalid");
+            errors.add(messageForUsers.INVALID_DATE);
         }
 
         return errors;
@@ -83,9 +88,9 @@ public class FreeRooms implements Command {
 
     private JdbcDto createBookingFromRequest(HttpServletRequest request) {
         return new JdbcDto.Builder()
-                .setDateIn(LocalDate.parse(request.getParameter("dateIn")))
-                .setDateOut(LocalDate.parse(request.getParameter("dateOut")))
-                .setTypeRoom(TypeRoom.valueOf(request.getParameter("typeRoom").toUpperCase()))
+                .setDateIn(LocalDate.parse(request.getParameter(messageForUsers.DATE_IN)))
+                .setDateOut(LocalDate.parse(request.getParameter(messageForUsers.DATE_OUT)))
+                .setTypeRoom(TypeRoom.valueOf(request.getParameter(messageForUsers.TYPE_ROOM).toUpperCase()))
                 .build();
     }
 }

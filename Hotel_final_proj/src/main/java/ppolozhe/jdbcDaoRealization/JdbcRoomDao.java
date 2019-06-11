@@ -117,7 +117,7 @@ public class JdbcRoomDao extends AbstaractFuncForDao implements RoomDaoInterface
             ResultSet resultSet = statement.executeQuery();
             result = getOneRoom(resultSet);
         } catch (SQLException e) {
-            LOGGER.info(JdbcRoomDao.class.toString() + "find" + e.getMessage());
+            LOGGER.info(JdbcRoomDao.class.toString() + messageForLogger.FIND + e.getMessage());
             throw new Exception();
         }
         return result;
@@ -133,7 +133,7 @@ public class JdbcRoomDao extends AbstaractFuncForDao implements RoomDaoInterface
             result = getSomeRooms(resultSet);
             LOGGER.info("RESULT: " + result);
         } catch (SQLException e) {
-            LOGGER.info(JdbcRoomDao.class.toString() + "findAll" + e.getMessage());
+            LOGGER.info(JdbcRoomDao.class.toString() + messageForLogger.FIND_ALL + e.getMessage());
         }
         return result;
     }
@@ -153,7 +153,7 @@ public class JdbcRoomDao extends AbstaractFuncForDao implements RoomDaoInterface
             insertedRow = statement.executeUpdate();
             room.setId(generateId(statement));
         } catch (SQLException e) {
-            LOGGER.info(JdbcRoomDao.class.toString() + " create" + e.getMessage());
+            LOGGER.info(JdbcRoomDao.class.toString() + messageForLogger.CREATE + e.getMessage());
             throw new Exception();
         }
         return insertedRow > 0;
@@ -169,7 +169,7 @@ public class JdbcRoomDao extends AbstaractFuncForDao implements RoomDaoInterface
             statement.setInt(1, id);
             deletedRow = statement.executeUpdate();
         } catch (SQLException e) {
-            LOGGER.info(JdbcRoomDao.class.toString() + "delete" + e.getMessage());
+            LOGGER.info(JdbcRoomDao.class.toString() + messageForLogger.DELETE_ROOM + e.getMessage());
             throw new Exception();
         }
         return deletedRow > 0;
@@ -188,7 +188,7 @@ public class JdbcRoomDao extends AbstaractFuncForDao implements RoomDaoInterface
             statement.setInt(1, room.getId());//id
             updatedRow = statement.executeUpdate();
         } catch (SQLException e) {
-            LOGGER.info(JdbcRoomDao.class.toString() + "update" + e.getMessage());
+            LOGGER.info(JdbcRoomDao.class.toString() + messageForLogger.UPDATE + e.getMessage());
             throw new Exception();
         }
         return updatedRow > 0;

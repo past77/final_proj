@@ -1,5 +1,6 @@
 package ppolozhe.command;
 
+import ppolozhe.constants.JspConst;
 import ppolozhe.modelEntity.Room;
 import ppolozhe.service.RoomService;
 
@@ -27,6 +28,6 @@ public class AllRoomPage implements Command{
         List<Room> rooms;
         rooms =  roomService.findAll();
         request.setAttribute("rooms", rooms);
-        return "allRooms";
+        return JspConst.ALL_ROOMS;
     }
 }

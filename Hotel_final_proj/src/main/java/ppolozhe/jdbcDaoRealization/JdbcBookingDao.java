@@ -73,7 +73,6 @@ public class JdbcBookingDao extends AbstaractFuncForDao implements BookingDaoInt
     @Override
     public boolean create(Booking booking) throws Exception {
         int insertedRow = 0;
-        LOGGER.info(" booking.getUser().getAccounts().getId()" + booking.getUser().getAccounts().getId());
         try (JdbcConnection connection = connectionToDatabase.getConnection();
              PreparedStatement statement = connection.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS))
         {
@@ -87,7 +86,7 @@ public class JdbcBookingDao extends AbstaractFuncForDao implements BookingDaoInt
             booking.setId(generateId(statement));
         } catch (SQLException e) {
             e.printStackTrace();
-            LOGGER.info(JdbcBookingDao.class.toString() + " create()" + e.getMessage());
+            LOGGER.info(JdbcBookingDao.class.toString() + messageForLogger.DELETE + e.getMessage());
             throw new Exception();
         }
         return insertedRow > 0;
@@ -102,7 +101,7 @@ public class JdbcBookingDao extends AbstaractFuncForDao implements BookingDaoInt
             statement.setInt(1, id);
             deletedRow = statement.executeUpdate();
         } catch (SQLException e) {
-            LOGGER.info(JdbcBookingDao.class.toString() + "delete" + e.getMessage());
+            LOGGER.info(JdbcBookingDao.class.toString() + messageForLogger.DELETE + e.getMessage());
             throw new Exception();
         }
         return deletedRow > 0;
@@ -138,7 +137,7 @@ public class JdbcBookingDao extends AbstaractFuncForDao implements BookingDaoInt
             statement.setInt(7, booking.getId());
             updatedRow = statement.executeUpdate();
         } catch (SQLException e) {
-            LOGGER.info(JdbcBookingDao.class.toString() + "update" + e.getMessage());
+            LOGGER.info(JdbcBookingDao.class.toString() + messageForLogger.UPDATE + e.getMessage());
             throw new Exception();
         }
         return updatedRow > 0;
@@ -160,7 +159,7 @@ public class JdbcBookingDao extends AbstaractFuncForDao implements BookingDaoInt
             result = getSomeBookings(resultSet);
         } catch (SQLException e) {
             e.printStackTrace();
-            LOGGER.info(JdbcBookingDao.class.toString() + "find by user" + e.getMessage());
+            LOGGER.info(JdbcBookingDao.class.toString() + messageForLogger.FIND_BY_NUMBER + e.getMessage());
             throw new Exception();
         }
         return result;
@@ -177,7 +176,7 @@ public class JdbcBookingDao extends AbstaractFuncForDao implements BookingDaoInt
             ResultSet resultSet = statement.executeQuery();
             results = getSomeBookings(resultSet);
         } catch (SQLException e) {
-            LOGGER.info(JdbcBookingDao.class.toString() + "FIND_PROCESSED_BOOKINGS" + e.getMessage());
+            LOGGER.info(JdbcBookingDao.class.toString() + messageForLogger.FIND_PROCESSED_BOOKINGS + e.getMessage());
             throw new Exception();
         }
         return results;
@@ -193,7 +192,7 @@ public class JdbcBookingDao extends AbstaractFuncForDao implements BookingDaoInt
             ResultSet resultSet = statement.executeQuery();
             results = getRowCount(resultSet);
         } catch (SQLException e) {
-            LOGGER.info(JdbcBookingDao.class.toString() + " GET_NUMBER_OF_PAGES_FOR_PROCESSED_BOOKINGS" + e.getMessage());
+            LOGGER.info(JdbcBookingDao.class.toString() + messageForLogger.GET_NUMBER_OF_PAGES_FOR_PROCESSED_BOOKINGS + e.getMessage());
             throw new Exception();
         }
         return results;
@@ -257,7 +256,7 @@ public class JdbcBookingDao extends AbstaractFuncForDao implements BookingDaoInt
             ResultSet resultSet = statement.executeQuery();
             result = getOneBooking(resultSet);
         } catch (SQLException e) {
-            LOGGER.info(JdbcBookingDao.class.toString() + "find()" + e.getMessage());
+            LOGGER.info(JdbcBookingDao.class.toString() + messageForLogger.FIND + e.getMessage());
             throw new Exception();
         }
         return result;
@@ -274,10 +273,9 @@ public class JdbcBookingDao extends AbstaractFuncForDao implements BookingDaoInt
             resultSet = statement.executeQuery();
             result = getSomeBookings(resultSet);
         } catch (SQLException e) {
-            LOGGER.info(JdbcBookingDao.class.toString() + "findAll()" + e.getMessage());
+            LOGGER.info(JdbcBookingDao.class.toString() + messageForLogger.FIND_ALL + e.getMessage());
             throw new Exception();
         }
         return result;
     }
-
 }

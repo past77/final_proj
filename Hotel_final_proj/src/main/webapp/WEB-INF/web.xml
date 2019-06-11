@@ -63,6 +63,16 @@
     <welcome-file>/JspFiles/mainPage.jsp</welcome-file>
   </welcome-file-list>
 
+  <error-page>
+    <error-code>404</error-code>
+    <location>/WEB-INF/JspFiles/404.jsp</location>
+  </error-page>
+
+  <error-page>
+    <error-code>500</error-code>
+    <location>/WEB-INF/JspFiles/error.jsp</location>
+  </error-page>
+
   <resource-ref>
     <res-ref-name>jdbc/hotel</res-ref-name>
     <res-type>javax.sql.DataSource</res-type>

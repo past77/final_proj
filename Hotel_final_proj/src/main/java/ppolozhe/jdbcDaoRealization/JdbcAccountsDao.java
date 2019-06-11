@@ -149,7 +149,7 @@ public class JdbcAccountsDao extends AbstaractFuncForDao implements AccountsDaoI
             statement.setInt(1, id);
             deletedRow = statement.executeUpdate();
         } catch (SQLException e) {
-            LOGGER.info(JdbcAccountsDao.class.toString() + messageForLogger.DELETE + e.getMessage());
+            LOGGER.info(JdbcAccountsDao.class.toString() + messageForLogger.DELETE_ACCOUNTS + e.getMessage());
             throw new Exception();
         }
         return deletedRow > 0;

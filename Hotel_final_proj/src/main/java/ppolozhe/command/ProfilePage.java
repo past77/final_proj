@@ -1,5 +1,7 @@
 package ppolozhe.command;
 
+import ppolozhe.constants.JspConst;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -16,6 +18,6 @@ public class ProfilePage implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        return "profilePage";
+        return JspConst.PROFILE;
     }
 }

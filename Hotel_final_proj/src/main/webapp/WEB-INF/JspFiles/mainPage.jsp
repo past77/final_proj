@@ -20,10 +20,7 @@
 <div class="row ">
     <p class="welcome-title"><fmt:message key="greetings"/></p>
 </div>
-
- <div class="footer">
- <div class = "foot">Copyright Paul Polozhevets
- </div></div>
+<%@include file="footer.jsp" %>
 
 </body>
 </html>

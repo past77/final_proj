@@ -1,5 +1,7 @@
 package ppolozhe.command;
 
+import ppolozhe.constants.JspConst;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -14,6 +16,6 @@ public class RegisterPage implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        return "registration";
+        return JspConst.REGISTRATION;
     }
 }

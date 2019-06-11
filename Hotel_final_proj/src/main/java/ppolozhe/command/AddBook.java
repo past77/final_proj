@@ -1,5 +1,7 @@
 package ppolozhe.command;
 
+import ppolozhe.constants.JspConst;
+import ppolozhe.constants.MessageForUsers;
 import ppolozhe.enums.Status;
 import ppolozhe.enums.TypeRoom;
 import ppolozhe.modelEntity.Booking;
@@ -16,6 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AddBook implements Command {
+
+    MessageForUsers messageForUsers= new MessageForUsers();
     private BookingService bookingService;
     private static final Logger LOGGER = Logger.getLogger(AddBook.class);
     AddBook(BookingService bookingService) {
@@ -27,7 +31,6 @@ public class AddBook implements Command {
     }
 
     public static AddBook getInstance() {
-        LOGGER.info("addBook.GetInstance");
         return Holder.INSTANCE;
     }
 
@@ -36,20 +39,19 @@ public class AddBook implements Command {
         Booking booking = createBookingFromRequest(request);
         List<String> errors = validate(booking);
         if(!errors.isEmpty()){
-            LOGGER.info("In addbookErrors!");
             setAttributesToRequest(request, booking, errors);
-            return "/addBook";
-        };
+            return JspConst.ADD_BOOK;
+        }
         bookingService.create(booking);
-        request.setAttribute("success", "message.complete");
-        return "profilePage";
+        request.setAttribute(messageForUsers.SUCCESS, messageForUsers.COMPLETE);
+        return JspConst.PROFILE;
     }
 
     private void setAttributesToRequest(HttpServletRequest request, Booking booking, List<String> errors) {
-        request.setAttribute("errors", errors);
-        request.setAttribute("dateIn", booking.getDateIn());
-        request.setAttribute("dateOut", booking.getDateOut());
-        request.setAttribute("typeRoom", booking.getTypeRoom().toString());
+        request.setAttribute(messageForUsers.ERRORS, errors);
+        request.setAttribute(messageForUsers.DATE_IN, booking.getDateIn());
+        request.setAttribute(messageForUsers.DATE_OUT, booking.getDateOut());
+        request.setAttribute(messageForUsers.TYPE_ROOM, booking.getTypeRoom().toString());
     }
 
 
@@ -59,21 +61,21 @@ public class AddBook implements Command {
         Validator validator = Validator.getInstance();
 
         if(!validator.validateDate(booking.getDateIn(), booking.getDateOut())){
-            errors.add("message.invalid.date");
+            errors.add(messageForUsers.INVALID_DATE);
         }
         return errors;
     }
 
     private Booking createBookingFromRequest(HttpServletRequest request) {
         return new Booking.Builder()
-                .setDateIn(LocalDate.parse(request.getParameter("dateIn")))
-                .setDateOut(LocalDate.parse(request.getParameter("dateOut")))
-                .setRoomType(TypeRoom.valueOf(request.getParameter("typeRoom").toUpperCase()))
+                .setDateIn(LocalDate.parse(request.getParameter(messageForUsers.DATE_IN)))
+                .setDateOut(LocalDate.parse(request.getParameter(messageForUsers.DATE_OUT)))
+                .setRoomType(TypeRoom.valueOf(request.getParameter(messageForUsers.TYPE_ROOM).toUpperCase()))
                 .setStatus(Status.PROCESSED)
                 .setRoom(new Room.Builder()
-                        .setId(Integer.parseInt(request.getParameter("find")))
+                        .setId(Integer.parseInt(request.getParameter(messageForUsers.FIND)))
                         .build())
-                .setUser(((User) request.getSession().getAttribute("user")))
+                .setUser(((User) request.getSession().getAttribute(messageForUsers.USER)))
                 .build();
     }
 

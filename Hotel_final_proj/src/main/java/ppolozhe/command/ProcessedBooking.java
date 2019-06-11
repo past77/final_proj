@@ -35,9 +35,7 @@ public class ProcessedBooking implements Command{
         List<Booking> bookings = bookingService.findProcessedBookings((page - 1) * RECORDS_PER_PAGE, RECORDS_PER_PAGE);
 
         int numberOfPages = getNumberOfPages();
-//        List<List<Apartment>> freeNumbersForBooking = getFreeNumbers(bookings);
 
-//        System.out.println(bookings);
         setAttributesToRequest(request, bookings, numberOfPages, page);
 
         return "statusOfBooking";
@@ -45,7 +43,6 @@ public class ProcessedBooking implements Command{
 
     private void setAttributesToRequest(HttpServletRequest request, List<Booking> bookings, int numberOfPages, int page) {
         request.setAttribute("bookings", bookings);
-//        request.setAttribute(Parameters.FREE_NUMBERS, freeNumbersForBooking);
         request.setAttribute("noOfPages", numberOfPages);
         request.setAttribute("currentPage", page);
     }

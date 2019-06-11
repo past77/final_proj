@@ -1,9 +1,12 @@
 package ppolozhe.command;
 
+import ppolozhe.constants.JspConst;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class AddBookPage implements Command{
+
     private static class Holder {
         static final AddBookPage INSTANCE = new AddBookPage();
     }
@@ -14,6 +17,6 @@ public class AddBookPage implements Command{
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        return "addBook";
+        return JspConst.ADD_BOOK;
     }
 }

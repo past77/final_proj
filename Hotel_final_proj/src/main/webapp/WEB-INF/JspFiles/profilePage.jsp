@@ -43,6 +43,6 @@
          </c:choose>
             </c:if>
 
-
+<%@include file="footer.jsp" %>
             </body>
             </html>

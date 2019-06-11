@@ -33,7 +33,7 @@ public class UserService {
     public Optional<User> findUserByLoginPassword(String login, String password) throws Exception {
         Optional<User> user = Optional.empty();
         Optional<Accounts> accounts;
-            LOGGER.info(" Login " + login + " Password: " + password);
+
         accounts = daoFactory.getAccountsDao().findAccountsByLogin(login);
         LOGGER.info(accounts);
         if (accounts.isPresent() && correctPassword(accounts.get(), password)) {
@@ -48,7 +48,6 @@ public class UserService {
 
     private boolean correctPassword(Accounts accounts, String password) {
         boolean res = false;
-            LOGGER.info(" PASSWORD_IN_DB:::: " + accounts.getPassword() + " PASSWORD_FROM_FORM: " + password);
         if (password.equals(accounts.getPassword())){
             res = true;
         }

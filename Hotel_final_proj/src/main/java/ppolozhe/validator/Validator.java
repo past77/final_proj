@@ -2,8 +2,10 @@ package ppolozhe.validator;
 
 import org.apache.log4j.Logger;
 import ppolozhe.command.SignIn;
+import ppolozhe.modelEntity.Booking;
 
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  * Created by ppolozhe on 5/27/19.
@@ -11,7 +13,6 @@ import java.time.LocalDate;
 public class Validator {
     private static final Logger LOGGER = Logger.getLogger(Validator.class);
     private static final String LOGIN_REGEX = "^(?=.{1,50}$)[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
-    //private static final String PASSWORD_REGEX = "^.*(?=.{4,10})(?=.*\\d)(?=.*[a-zA-Z]).*$";
     //private static final String NAME_REGEX = "^[\\p{L} .'-]+$";
     private static final String PHONE_REGEX = "^(\\+\\d{1,2}\\s?)?\\(?\\d{3}\\)?[\\s.-]?\\d{3}[\\s.-]?\\d{2}\\s?\\d{2}$";
 
@@ -50,6 +51,25 @@ public class Validator {
 
     public boolean validateNumber(int number) {
         return number > 2;
+    }
+
+    public boolean validateNumberAndDateUpdatedBookings(List<Booking> bookings) {
+        boolean res = true;
+        for (int i = 0; i < bookings.size() - 1; i++) {
+            if(bookings.get(i).getRoom() != null) {
+                for (int j = i + 1; j < bookings.size(); j++) {
+                    if (bookings.get(j).getRoom() != null &&
+                            bookings.get(i).getRoom().getId() == bookings.get(j).getRoom().getId() &&
+                            !(bookings.get(i).getDateIn().isAfter(bookings.get(j).getDateOut()) ||
+                                    bookings.get(i).getDateIn().isEqual(bookings.get(j).getDateOut()) ||
+                                    bookings.get(i).getDateOut().isBefore(bookings.get(j).getDateIn())||
+                                    bookings.get(i).getDateOut().isEqual(bookings.get(j).getDateIn()))) {
+                        res = false;
+                    }
+                }
+            }
+        }
+        return res;
     }
 
 }

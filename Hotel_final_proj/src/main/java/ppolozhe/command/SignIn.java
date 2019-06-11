@@ -1,6 +1,7 @@
 package ppolozhe.command;
 
-import ppolozhe.constants.MassageForUsers;
+import ppolozhe.constants.JspConst;
+import ppolozhe.constants.MessageForUsers;
 import org.apache.log4j.Logger;
 import ppolozhe.service.UserService;
 import ppolozhe.validator.Validator;
@@ -18,7 +19,7 @@ import java.util.Optional;
  */
 public class SignIn implements Command{
     private static final Logger LOGGER = Logger.getLogger(SignIn.class);
-    MassageForUsers messageForUsers = new MassageForUsers();
+    MessageForUsers messageForUsers = new MessageForUsers();
 
     private UserService userService;
 
@@ -47,20 +48,17 @@ public class SignIn implements Command{
             setAttributesToRequest(request, login, errors);
             return messageForUsers.LOGIN;
         }
-        LOGGER.info("login: "+ login + " password: " + password);
         Optional<User> user = userService.findUserByLoginPassword(login, password);
         LOGGER.info(user);
 
-        LOGGER.info("USER:     " + user);
         if (!user.isPresent()) {
 
-            errors.add("message.signin.error");
+            errors.add(messageForUsers.INVALID_SIGIN);
             setAttributesToRequest(request, login, errors);
             return messageForUsers.LOGIN;
         }
-    LOGGER.info("USER.GET: "+ user.get());
         request.getSession().setAttribute(messageForUsers.USER, user.get());
-        return "profilePage";
+        return JspConst.PROFILE;
     }
 
     private void setAttributesToRequest(HttpServletRequest request, String login, List<String> errors){
@@ -74,11 +72,8 @@ public class SignIn implements Command{
         Validator validator = Validator.getInstance();
 
         if(!validator.validateLogin(login)){
-            errors.add("message.login.invalid");
+            errors.add(messageForUsers.INVALID_LOGIN);
         }
-       // if(!ppolozhe.validator.validatePassword(password)){
-          //  errors.add("message.password.invalid");
-      //  }
         return errors;
     }
 }

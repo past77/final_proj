@@ -110,5 +110,6 @@
     <p class="text-danger"><fmt:message key="${item}"/></p>
     <br>
 </c:forEach>
+<%@include file="footer.jsp" %>
 </body>
 </html>

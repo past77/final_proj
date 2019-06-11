@@ -3,12 +3,14 @@ package ppolozhe.command;
 import org.apache.log4j.Logger;
 import ppolozhe.service.UserService;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by ppolozhe on 5/27/19.
+ * Factory for commands.
  */
 public class CommandFactory {
     Map<String, Command> commands;
@@ -16,6 +18,7 @@ public class CommandFactory {
     CommandFactory() {
         commands = new HashMap<>();
         commands.put("/registration/signup", SignUp.getInstance());
+        commands.put("/notFound", NotFound.getInstance());
         commands.put("/", MainPage.getInstance());
        commands.put("/login/signin", SignIn.getInstance());
         commands.put("/login", LoginPage.getInstance());
@@ -36,6 +39,8 @@ public class CommandFactory {
         commands.put("/profile/rooms/delete", DeleteRoom.getInstance());
         commands.put("/profile/processedBookings", ProcessedBooking.getInstance());
         commands.put("/profile/processedBookings/update", UpdateBookingCommand.getInstance());
+
+
     }
 
     private static class Holder {
@@ -51,12 +56,14 @@ public class CommandFactory {
         String path = request.getServletPath();
         LOGGER.info("path: " + path);
         Command command = commands.get(path);
+
         LOGGER.info("ppolozhe.command: " + command);
 
         if(command == null){
-            command = MainPage.getInstance();
+            command = NotFound.getInstance();//MainPage.getInstance();
         }
         return command;
     }
+
 
 }

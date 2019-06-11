@@ -1,6 +1,7 @@
 package ppolozhe.command;
 
-import ppolozhe.constants.MassageForUsers;
+import ppolozhe.constants.JspConst;
+import ppolozhe.constants.MessageForUsers;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -9,8 +10,9 @@ import javax.servlet.http.HttpServletResponse;
  * Created by ppolozhe on 5/27/19.
  */
 public class MainPage implements Command{
+    JspConst jspConst = new JspConst();
 
-    MassageForUsers messageForUsers = new MassageForUsers();
+    MessageForUsers messageForUsers = new MessageForUsers();
 
     private static class Holder {
         static final MainPage INSTANCE = new MainPage();
@@ -22,6 +24,6 @@ public class MainPage implements Command{
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
-        return messageForUsers.MAIN;
+        return jspConst.MAIN;
     }
 }

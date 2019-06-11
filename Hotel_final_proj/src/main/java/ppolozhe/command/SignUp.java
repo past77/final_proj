@@ -1,6 +1,7 @@
 package ppolozhe.command;
 
-import ppolozhe.constants.MassageForUsers;
+import ppolozhe.constants.JspConst;
+import ppolozhe.constants.MessageForUsers;
 import ppolozhe.enums.StatusUser;
 import ppolozhe.modelEntity.Accounts;
 import ppolozhe.modelEntity.User;
@@ -18,7 +19,7 @@ import java.util.List;
  */
 public class SignUp implements Command {
     UserService userService;
-    MassageForUsers messageForUsers = new MassageForUsers();
+    MessageForUsers messageForUsers = new MessageForUsers();
     private static final Logger LOGGER = Logger.getLogger(SignUp.class);
 
 
@@ -41,27 +42,24 @@ public class SignUp implements Command {
         LOGGER.info(user.getSurname());
 
         List<String> errors = validateUser(user);
-        LOGGER.info("Before errors.isEmpty");
         if(!errors.isEmpty()){
             setAttributesToRequest(request, user, errors);
-            return "registration";
+            return JspConst.REGISTRATION;
         }
 
         boolean created = createUser(user, errors);
 
         if(!created){
             setAttributesToRequest(request, user, errors);
-            return "registration";
+            return JspConst.REGISTRATION;
         }
-        LOGGER.info("Before setSuccesAtrubuteToRequest");
         setSuccessAtributeToRequest(request);
-        return "mainPage";
+        return JspConst.MAIN;
     }
 
     private boolean createUser(User user, List<String> errors) throws Exception {
         boolean created = false;
         try {
-            LOGGER.info("In create user");
             created = userService.create(user);
         } catch (Exception e) {
             errors.add(messageForUsers.DUPLICATE_LOGIN);
@@ -70,7 +68,7 @@ public class SignUp implements Command {
     }
 
     private void setSuccessAtributeToRequest(HttpServletRequest request) {
-        request.setAttribute("success", "message.complete");
+        request.setAttribute(messageForUsers.SUCCESS, messageForUsers.COMPLETE);
     }
 
     private void setAttributesToRequest(HttpServletRequest request, User user, List<String> errors){
@@ -98,12 +96,12 @@ public class SignUp implements Command {
 
     private User createUserFromRequest(HttpServletRequest request) {
         return new User.Builder()
-                .setPhoneNumber(request.getParameter("phone"))
-                .setSurname(request.getParameter("surname"))
-                .setFirstName(request.getParameter("name"))
+                .setPhoneNumber(request.getParameter(messageForUsers.PHONE))
+                .setSurname(request.getParameter(messageForUsers.SURNAME))
+                .setFirstName(request.getParameter(messageForUsers.NAME))
                 .setAccounts(new Accounts.Builder()
-                        .setLogin(request.getParameter("login"))
-                        .setPassword(request.getParameter("password"))
+                        .setLogin(request.getParameter(messageForUsers.LOGIN))
+                        .setPassword(request.getParameter(messageForUsers.PASSWORD))
                         .setStatusUser(StatusUser.USER)
                         .build())
                 .build();

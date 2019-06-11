@@ -140,7 +140,7 @@ public class JdbcUserDao extends AbstaractFuncForDao implements UserDaoInterface
             statement.setInt(1, id);
             deletedRow = statement.executeUpdate();
         } catch (SQLException e) {
-            LOGGER.info(JdbcUserDao.class.toString() + messageForLogger.DELETE + e.getMessage());
+            LOGGER.info(JdbcUserDao.class.toString() + messageForLogger.DELETE_USER + e.getMessage());
             throw new Exception();
         }
         return deletedRow > 0;

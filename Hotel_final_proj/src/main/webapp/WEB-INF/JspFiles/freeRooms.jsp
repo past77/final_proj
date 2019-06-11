@@ -8,7 +8,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="custom" uri="http://ppolozhe" %>
+
 
 <html>
 <head>
@@ -21,14 +21,14 @@
    <div>
     <input type="hidden" name="page" value="freeRooms">
     <table align="center">
-        <tr>
-            <td><fmt:message key="bookings.dateIn"/>*</td>
-            <td><input type="date" value="${dateIn}" name="dateIn" required="required"></td>
+        <tr >
+            <td ><fmt:message key="bookings.dateIn"/>*</td>
+            <td class = "forminput"><input type="date" value="${dateIn}" name="dateIn" required="required"></td>
         </tr>
 
-        <tr>
-            <td><fmt:message key="bookings.dateOut"/>*</td>
-            <td><input type="date" value="${dateOut}" name="dateOut" required="required"></td>
+        <tr >
+            <td ><fmt:message key="bookings.dateOut"/>*</td>
+            <td class = "forminput"><input type="date" value="${dateOut}" name="dateOut" required="required"></td>
         </tr>
 
 
@@ -44,7 +44,7 @@
         </tr>
 </div>
 
-
+<%@include file="footer.jsp" %>
 </form>
     <div class="register2">
         <table align="center">
@@ -104,5 +104,6 @@
     <p class="text-danger"><fmt:message key="${item}"/></p>
     <br>
 </c:forEach>
+<%@include file="footer.jsp" %>
 </body>
 </html>

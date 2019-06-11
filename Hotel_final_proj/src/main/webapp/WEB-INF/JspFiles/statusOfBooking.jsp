@@ -3,7 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="tags" tagdir="/WEB-INF/tags" %>
 
-<%@ taglib prefix="custom" uri="http://ppolozhe" %>
+
 
 
 <html>
@@ -166,7 +166,7 @@
            <c:if test="${currentPage lt noOfPages}">
                <td><a href="/profile/processedBookings?page=${currentPage + 1}">Next</a></td>
            </c:if>
-
+<%@include file="footer.jsp" %>
 </body>
 </head>
 </html>

@@ -1,5 +1,7 @@
 package ppolozhe.command;
 
+import ppolozhe.constants.JspConst;
+import ppolozhe.constants.MessageForUsers;
 import ppolozhe.enums.TypeRoom;
 import ppolozhe.modelEntity.Room;
 import ppolozhe.service.RoomService;
@@ -12,6 +14,8 @@ import java.util.List;
 
 public class AddRooms implements Command{
     private RoomService roomService;
+    MessageForUsers messageForUsers = new MessageForUsers();
+
 
     AddRooms(RoomService roomService) {
         this.roomService = roomService;
@@ -33,19 +37,19 @@ public class AddRooms implements Command{
 
         if(!errors.isEmpty()){
             setAttributesToRequest(request, room, errors);
-            return "addApartments";
+            return JspConst.ADD_APARTMENTS;
         }
         roomService.create(room);
-        request.setAttribute("success", "message.complete");
-        return "addApartments";
+        request.setAttribute(messageForUsers.SUCCESS, messageForUsers.COMPLETE);
+        return JspConst.ADD_APARTMENTS;
     }
 
     private void setAttributesToRequest(HttpServletRequest request, Room room, List<String> errors) {
-        request.setAttribute("errors", errors);
-        request.setAttribute("number", room.getNumber());
-        request.setAttribute("price", room.getPrice());
-        request.setAttribute("capacity", room.getRoomCap());
-        request.setAttribute("typeRoom", room.getRoomType().toString());
+        request.setAttribute(messageForUsers.ERRORS, errors);
+        request.setAttribute(messageForUsers.NUMBER, room.getNumber());
+        request.setAttribute(messageForUsers.PRICE, room.getPrice());
+        request.setAttribute(messageForUsers.CAPACITY, room.getRoomCap());
+        request.setAttribute(messageForUsers.TYPE_ROOM, room.getRoomType().toString());
 
     }
 
@@ -55,14 +59,14 @@ public class AddRooms implements Command{
         Validator validator = Validator.getInstance();
 
         if(!validator.validatePrice(room.getPrice())){
-            errors.add("message.price.invalid");
+            errors.add(messageForUsers.INVALID_PRICE);
         }
 
         if(!validator.validateCapacity(room.getRoomCap())){
-            errors.add("message.capacity.invalid");
+            errors.add(messageForUsers.INVALID_CAPACITY);
         }
         if(!validator.validateNumber(room.getNumber())){
-            errors.add("message.number.invalid");
+            errors.add(messageForUsers.INVALID_NUMBER);
         }
 
         return errors;
@@ -70,10 +74,10 @@ public class AddRooms implements Command{
 
     private Room createRoomFromRequest(HttpServletRequest request) {
         return new Room.Builder()
-                .setPrice(Integer.parseInt(request.getParameter("price")))
-                .setRoomCap(Integer.parseInt(request.getParameter("capacity")))
-                .setRoomType(TypeRoom.valueOf(request.getParameter("typeRoom").toUpperCase()))
-                .setNumber(Integer.parseInt(request.getParameter("number")))
+                .setPrice(Integer.parseInt(request.getParameter(messageForUsers.PRICE)))
+                .setRoomCap(Integer.parseInt(request.getParameter(messageForUsers.CAPACITY)))
+                .setRoomType(TypeRoom.valueOf(request.getParameter(messageForUsers.TYPE_ROOM).toUpperCase()))
+                .setNumber(Integer.parseInt(request.getParameter(messageForUsers.NUMBER)))
                 .build();
     }
 

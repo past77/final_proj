@@ -1,6 +1,7 @@
 package ppolozhe.command;
 
 import org.apache.log4j.Logger;
+import ppolozhe.constants.MessageForUsers;
 import ppolozhe.service.BookingService;
 import ppolozhe.service.UserService;
 
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 public class DeleteBookings implements Command{
     private static final Logger LOGGER = Logger.getLogger(DeleteBookings.class);
+    MessageForUsers messageForUsers = new MessageForUsers();
 
     private BookingService bookingService;
 
@@ -26,11 +28,11 @@ public class DeleteBookings implements Command{
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-       LOGGER.info("request.getParameter(\"delete\")________"+ request.getParameter("delete"));
-        int id = Integer.parseInt(request.getParameter("delete"));
+       LOGGER.info("request.getParameter(\"delete\")________"+ request.getParameter(messageForUsers.DELETE));
+        int id = Integer.parseInt(request.getParameter(messageForUsers.DELETE));
         LOGGER.info("id: " + id);
         bookingService.delete(id);
-        request.setAttribute("success", "message.complete");
+        request.setAttribute(messageForUsers.SUCCESS, messageForUsers.COMPLETE);
         return UsersBookings.getInstance().execute(request, response);
     }
 
