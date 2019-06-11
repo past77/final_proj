@@ -16,7 +16,7 @@ public class RoomService {
     private ConnectionToDatabase connectionToDatabase;
     private DaoFactory daoFactory;
 
-    RoomService(ConnectionToDatabase connectionManager, DaoFactory daoFactory) {
+    public RoomService(ConnectionToDatabase connectionManager, DaoFactory daoFactory) {
         this.connectionToDatabase = connectionToDatabase;
         this.daoFactory = daoFactory;
     }

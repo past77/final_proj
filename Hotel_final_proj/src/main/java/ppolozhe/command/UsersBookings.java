@@ -44,13 +44,9 @@ public class UsersBookings implements Command{
 
     private List<Booking> createBookings(HttpServletRequest request) throws Exception {
         List<Booking> bookings = bookingService.findByUser(((User) request.getSession().getAttribute("user")).getAccounts().getId());
-        LOGGER.info("CREATE FJOPJFJDFLJJLDFJLKFDJALKAFDJKLJKFLDA___BOOKINGS");
         for (Booking booking: bookings) {
-            LOGGER.info("TOOSTRING: "+ booking.toString());
             if(booking.getStatus().equals(Status.CONFIRMED)){
-                LOGGER.info("booking.getStatus()___: " + booking.getStatus() + "must be CONFIRMED");
                 Optional<Bill> bill = billService.findByBooking(booking);
-                LOGGER.info("BILL_IS_PRESENT____: " + bill);
                 if(bill.isPresent()) {
                     booking.setBill(bill.get());
                 }

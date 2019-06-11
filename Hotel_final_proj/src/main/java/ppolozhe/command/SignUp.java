@@ -89,17 +89,6 @@ public class SignUp implements Command {
         if(!validator.validateLogin(user.getAccounts().getLogin())){
             errors.add(messageForUsers.INVALID_PASSWORD);
         }
-    //    if(!ppolozhe.validator.validatePassword(user.getUserAuthentication().getPassword())){
-       //     errors.add(massageForUsers.INVALID_PASSWORD);
-      //  }
-
-//        if(!ppolozhe.validator.validateName(user.getFirstName())){
-//            errors.add(messageForUsers.INVALID_FIRST_NAME);
-//        }
-
-//        if(!ppolozhe.validator.validateName(user.getSurname())){
-//            errors.add(messageForUsers.INVALID_LAST_NAME);
-//        }
 
         if(!validator.validatePhone(user.getPhoneNumber())){
             errors.add(messageForUsers.INVALID_PHONE);

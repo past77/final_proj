@@ -14,7 +14,7 @@
 <form class="register" method="POST" action="/registration/signup" autocomplete="on">
     <div>
         <span><i aria-hidden="true"></i><fmt:message key="login.page"/> </span>
-        <input type="text" placeholder="example@mail.com" name="login" value="${login}" required="required">
+        <input type="text" placeholder="example@mail.com" name="login"  required="required">
     </div>
     <div>
         <span><i class="forminput"  aria-hidden="true"></i><fmt:message key="password"/> </span>
@@ -25,7 +25,7 @@
     <div>
         <span><i class="forminput" aria-hidden="true"></i><fmt:message key="registration.name"/> </span>
         <input type="text" placeholder="<fmt:message key="registration.name"/>" name="name"
-               value="${name}" required="required">
+                required="required">
     </div>
     <div>
         <span><i class="forminput"  aria-hidden="true"></i><fmt:message key="registration.surname"/> </span>

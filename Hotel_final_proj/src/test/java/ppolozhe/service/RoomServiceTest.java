@@ -1,18 +1,18 @@
 package ppolozhe.service;
 
-import org.junit.Test;
-import ppolozhe.connectionDao.ConnectionToDatabase;
-import ppolozhe.connectionDao.DaoFactory;
-import ppolozhe.enums.TypeRoom;
-import ppolozhe.jdbcDaoRealization.JdbcRoomDao;
-import ppolozhe.modelEntity.Room;
+        import org.junit.Test;
+        import ppolozhe.connectionDao.ConnectionToDatabase;
+        import ppolozhe.connectionDao.DaoFactory;
+        import ppolozhe.enums.TypeRoom;
+        import ppolozhe.jdbcDaoRealization.JdbcRoomDao;
+        import ppolozhe.modelEntity.Room;
 
-import java.util.Arrays;
-import java.util.List;
+        import java.util.Arrays;
+        import java.util.List;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.verify;
+        import static org.junit.Assert.*;
+        import static org.mockito.Mockito.*;
+        import static org.mockito.Mockito.verify;
 
 public class RoomServiceTest {
     private DaoFactory daoFactory;
@@ -53,10 +53,11 @@ public class RoomServiceTest {
     @Test
     public void testCreateAuthor() throws Exception {
         Room apartment = buildRoom();
+        int id = apartment.getId();
         init();
         stubDaoFactory();
 
-        roomService.create(apartment);
+        roomService.delete(id);
 
         verify(daoFactory).getRoomDao();
         verify(roomDao).create(apartment);

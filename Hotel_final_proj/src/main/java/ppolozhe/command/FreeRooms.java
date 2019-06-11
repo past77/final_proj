@@ -36,20 +36,15 @@ public class FreeRooms implements Command {
         ///LOGGER.info("LocalDate.parse(request.getParameter(dateOUT)): "+ LocalDate.parse(request.getParameter("dateOut")));
 
         JdbcDto jdbcDto = createBookingFromRequest(request);
-        LOGGER.info(jdbcDto.getDateIn()+ " - Datein___DateOut - " + jdbcDto.getDateOut());
         String page = createPageFromRequest(request);
-        LOGGER.info("pageinFreeRooms: " + page);
         List<String> errors = validate(jdbcDto);
 
         if(!errors.isEmpty()){
             setAttributesToRequestWithErrors(request, jdbcDto, errors);
             return page;
         }
-
         List<Room> rooms = roomService.findFreeRooms(jdbcDto);
-
         setAttributesToRequest(request, jdbcDto, rooms);
-
         return page;
     }
 
